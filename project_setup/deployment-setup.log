@@ -1,0 +1,1009 @@
+Mon Apr 17 17:13:43 UTC 2023
+ERROR: (gcloud.iam.service-accounts.create) Resource in projects [gccspm-cac-customer-poc2] is the subject of a conflict: Service account cac-solution-402743803722-sa already exists within project projects/gccspm-cac-customer-poc2.
+- '@type': type.googleapis.com/google.rpc.ResourceInfo
+  resourceName: projects/gccspm-cac-customer-poc2/serviceAccounts/cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+Updated IAM policy for project [gccspm-cac-customer-poc2].
+bindings:
+- members:
+  - serviceAccount:service-888807792397@gcp-sa-binaryauthorization.iam.gserviceaccount.com
+  role: roles/binaryauthorization.serviceAgent
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/cloudscheduler.admin
+- members:
+  - serviceAccount:service-888807792397@gcp-sa-cloudscheduler.iam.gserviceaccount.com
+  role: roles/cloudscheduler.serviceAgent
+- members:
+  - serviceAccount:service-888807792397@compute-system.iam.gserviceaccount.com
+  role: roles/compute.serviceAgent
+- members:
+  - serviceAccount:service-888807792397@container-engine-robot.iam.gserviceaccount.com
+  role: roles/container.serviceAgent
+- members:
+  - serviceAccount:service-888807792397@container-analysis.iam.gserviceaccount.com
+  role: roles/containeranalysis.ServiceAgent
+- members:
+  - serviceAccount:service-888807792397@containerregistry.iam.gserviceaccount.com
+  role: roles/containerregistry.ServiceAgent
+- members:
+  - serviceAccount:888807792397-compute@developer.gserviceaccount.com
+  - serviceAccount:888807792397@cloudservices.gserviceaccount.com
+  role: roles/editor
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/iam.serviceAccountUser
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/iam.workloadIdentityUser
+- members:
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/owner
+- members:
+  - serviceAccount:service-888807792397@gcp-sa-pubsub.iam.gserviceaccount.com
+  role: roles/pubsub.serviceAgent
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/run.developer
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/run.invoker
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  - serviceAccount:service-888807792397@serverless-robot-prod.iam.gserviceaccount.com
+  role: roles/run.serviceAgent
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/storage.admin
+- members:
+  - serviceAccount:project-888807792397@storage-transfer-service.iam.gserviceaccount.com
+  role: roles/storage.objectViewer
+etag: BwX5i1G-gqs=
+version: 1
+Updated IAM policy for project [gccspm-cac-customer-poc2].
+bindings:
+- members:
+  - serviceAccount:service-888807792397@gcp-sa-binaryauthorization.iam.gserviceaccount.com
+  role: roles/binaryauthorization.serviceAgent
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/cloudscheduler.admin
+- members:
+  - serviceAccount:service-888807792397@gcp-sa-cloudscheduler.iam.gserviceaccount.com
+  role: roles/cloudscheduler.serviceAgent
+- members:
+  - serviceAccount:service-888807792397@compute-system.iam.gserviceaccount.com
+  role: roles/compute.serviceAgent
+- members:
+  - serviceAccount:service-888807792397@container-engine-robot.iam.gserviceaccount.com
+  role: roles/container.serviceAgent
+- members:
+  - serviceAccount:service-888807792397@container-analysis.iam.gserviceaccount.com
+  role: roles/containeranalysis.ServiceAgent
+- members:
+  - serviceAccount:service-888807792397@containerregistry.iam.gserviceaccount.com
+  role: roles/containerregistry.ServiceAgent
+- members:
+  - serviceAccount:888807792397-compute@developer.gserviceaccount.com
+  - serviceAccount:888807792397@cloudservices.gserviceaccount.com
+  role: roles/editor
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/iam.serviceAccountUser
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/iam.workloadIdentityUser
+- members:
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/owner
+- members:
+  - serviceAccount:service-888807792397@gcp-sa-pubsub.iam.gserviceaccount.com
+  role: roles/pubsub.serviceAgent
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/run.developer
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/run.invoker
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  - serviceAccount:service-888807792397@serverless-robot-prod.iam.gserviceaccount.com
+  role: roles/run.serviceAgent
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/storage.admin
+- members:
+  - serviceAccount:project-888807792397@storage-transfer-service.iam.gserviceaccount.com
+  role: roles/storage.objectViewer
+etag: BwX5i1HZ_LQ=
+version: 1
+Updated IAM policy for project [gccspm-cac-customer-poc2].
+bindings:
+- members:
+  - serviceAccount:service-888807792397@gcp-sa-binaryauthorization.iam.gserviceaccount.com
+  role: roles/binaryauthorization.serviceAgent
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/cloudscheduler.admin
+- members:
+  - serviceAccount:service-888807792397@gcp-sa-cloudscheduler.iam.gserviceaccount.com
+  role: roles/cloudscheduler.serviceAgent
+- members:
+  - serviceAccount:service-888807792397@compute-system.iam.gserviceaccount.com
+  role: roles/compute.serviceAgent
+- members:
+  - serviceAccount:service-888807792397@container-engine-robot.iam.gserviceaccount.com
+  role: roles/container.serviceAgent
+- members:
+  - serviceAccount:service-888807792397@container-analysis.iam.gserviceaccount.com
+  role: roles/containeranalysis.ServiceAgent
+- members:
+  - serviceAccount:service-888807792397@containerregistry.iam.gserviceaccount.com
+  role: roles/containerregistry.ServiceAgent
+- members:
+  - serviceAccount:888807792397-compute@developer.gserviceaccount.com
+  - serviceAccount:888807792397@cloudservices.gserviceaccount.com
+  role: roles/editor
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/iam.serviceAccountUser
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/iam.workloadIdentityUser
+- members:
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/owner
+- members:
+  - serviceAccount:service-888807792397@gcp-sa-pubsub.iam.gserviceaccount.com
+  role: roles/pubsub.serviceAgent
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/run.developer
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/run.invoker
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  - serviceAccount:service-888807792397@serverless-robot-prod.iam.gserviceaccount.com
+  role: roles/run.serviceAgent
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/storage.admin
+- members:
+  - serviceAccount:project-888807792397@storage-transfer-service.iam.gserviceaccount.com
+  role: roles/storage.objectViewer
+etag: BwX5i1HyQr0=
+version: 1
+Updated IAM policy for project [gccspm-cac-customer-poc2].
+bindings:
+- members:
+  - serviceAccount:service-888807792397@gcp-sa-binaryauthorization.iam.gserviceaccount.com
+  role: roles/binaryauthorization.serviceAgent
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/cloudscheduler.admin
+- members:
+  - serviceAccount:service-888807792397@gcp-sa-cloudscheduler.iam.gserviceaccount.com
+  role: roles/cloudscheduler.serviceAgent
+- members:
+  - serviceAccount:service-888807792397@compute-system.iam.gserviceaccount.com
+  role: roles/compute.serviceAgent
+- members:
+  - serviceAccount:service-888807792397@container-engine-robot.iam.gserviceaccount.com
+  role: roles/container.serviceAgent
+- members:
+  - serviceAccount:service-888807792397@container-analysis.iam.gserviceaccount.com
+  role: roles/containeranalysis.ServiceAgent
+- members:
+  - serviceAccount:service-888807792397@containerregistry.iam.gserviceaccount.com
+  role: roles/containerregistry.ServiceAgent
+- members:
+  - serviceAccount:888807792397-compute@developer.gserviceaccount.com
+  - serviceAccount:888807792397@cloudservices.gserviceaccount.com
+  role: roles/editor
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/iam.serviceAccountUser
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/iam.workloadIdentityUser
+- members:
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/owner
+- members:
+  - serviceAccount:service-888807792397@gcp-sa-pubsub.iam.gserviceaccount.com
+  role: roles/pubsub.serviceAgent
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/run.developer
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/run.invoker
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  - serviceAccount:service-888807792397@serverless-robot-prod.iam.gserviceaccount.com
+  role: roles/run.serviceAgent
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/storage.admin
+- members:
+  - serviceAccount:project-888807792397@storage-transfer-service.iam.gserviceaccount.com
+  role: roles/storage.objectViewer
+etag: BwX5i1IN0rg=
+version: 1
+Updated IAM policy for project [gccspm-cac-customer-poc2].
+bindings:
+- members:
+  - serviceAccount:service-888807792397@gcp-sa-binaryauthorization.iam.gserviceaccount.com
+  role: roles/binaryauthorization.serviceAgent
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/cloudscheduler.admin
+- members:
+  - serviceAccount:service-888807792397@gcp-sa-cloudscheduler.iam.gserviceaccount.com
+  role: roles/cloudscheduler.serviceAgent
+- members:
+  - serviceAccount:service-888807792397@compute-system.iam.gserviceaccount.com
+  role: roles/compute.serviceAgent
+- members:
+  - serviceAccount:service-888807792397@container-engine-robot.iam.gserviceaccount.com
+  role: roles/container.serviceAgent
+- members:
+  - serviceAccount:service-888807792397@container-analysis.iam.gserviceaccount.com
+  role: roles/containeranalysis.ServiceAgent
+- members:
+  - serviceAccount:service-888807792397@containerregistry.iam.gserviceaccount.com
+  role: roles/containerregistry.ServiceAgent
+- members:
+  - serviceAccount:888807792397-compute@developer.gserviceaccount.com
+  - serviceAccount:888807792397@cloudservices.gserviceaccount.com
+  role: roles/editor
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/iam.serviceAccountUser
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/iam.workloadIdentityUser
+- members:
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/owner
+- members:
+  - serviceAccount:service-888807792397@gcp-sa-pubsub.iam.gserviceaccount.com
+  role: roles/pubsub.serviceAgent
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/run.developer
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/run.invoker
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  - serviceAccount:service-888807792397@serverless-robot-prod.iam.gserviceaccount.com
+  role: roles/run.serviceAgent
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/storage.admin
+- members:
+  - serviceAccount:project-888807792397@storage-transfer-service.iam.gserviceaccount.com
+  role: roles/storage.objectViewer
+etag: BwX5i1Ikp-I=
+version: 1
+Updated IAM policy for project [gccspm-cac-customer-poc2].
+bindings:
+- members:
+  - serviceAccount:service-888807792397@gcp-sa-binaryauthorization.iam.gserviceaccount.com
+  role: roles/binaryauthorization.serviceAgent
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/cloudscheduler.admin
+- members:
+  - serviceAccount:service-888807792397@gcp-sa-cloudscheduler.iam.gserviceaccount.com
+  role: roles/cloudscheduler.serviceAgent
+- members:
+  - serviceAccount:service-888807792397@compute-system.iam.gserviceaccount.com
+  role: roles/compute.serviceAgent
+- members:
+  - serviceAccount:service-888807792397@container-engine-robot.iam.gserviceaccount.com
+  role: roles/container.serviceAgent
+- members:
+  - serviceAccount:service-888807792397@container-analysis.iam.gserviceaccount.com
+  role: roles/containeranalysis.ServiceAgent
+- members:
+  - serviceAccount:service-888807792397@containerregistry.iam.gserviceaccount.com
+  role: roles/containerregistry.ServiceAgent
+- members:
+  - serviceAccount:888807792397-compute@developer.gserviceaccount.com
+  - serviceAccount:888807792397@cloudservices.gserviceaccount.com
+  role: roles/editor
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/iam.serviceAccountUser
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/iam.workloadIdentityUser
+- members:
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/owner
+- members:
+  - serviceAccount:service-888807792397@gcp-sa-pubsub.iam.gserviceaccount.com
+  role: roles/pubsub.serviceAgent
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/run.developer
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/run.invoker
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  - serviceAccount:service-888807792397@serverless-robot-prod.iam.gserviceaccount.com
+  role: roles/run.serviceAgent
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/storage.admin
+- members:
+  - serviceAccount:project-888807792397@storage-transfer-service.iam.gserviceaccount.com
+  role: roles/storage.objectViewer
+etag: BwX5i1I9MrM=
+version: 1
+Updated IAM policy for project [gccspm-cac-customer-poc2].
+bindings:
+- members:
+  - serviceAccount:service-888807792397@gcp-sa-binaryauthorization.iam.gserviceaccount.com
+  role: roles/binaryauthorization.serviceAgent
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/cloudscheduler.admin
+- members:
+  - serviceAccount:service-888807792397@gcp-sa-cloudscheduler.iam.gserviceaccount.com
+  role: roles/cloudscheduler.serviceAgent
+- members:
+  - serviceAccount:service-888807792397@compute-system.iam.gserviceaccount.com
+  role: roles/compute.serviceAgent
+- members:
+  - serviceAccount:service-888807792397@container-engine-robot.iam.gserviceaccount.com
+  role: roles/container.serviceAgent
+- members:
+  - serviceAccount:service-888807792397@container-analysis.iam.gserviceaccount.com
+  role: roles/containeranalysis.ServiceAgent
+- members:
+  - serviceAccount:service-888807792397@containerregistry.iam.gserviceaccount.com
+  role: roles/containerregistry.ServiceAgent
+- members:
+  - serviceAccount:888807792397-compute@developer.gserviceaccount.com
+  - serviceAccount:888807792397@cloudservices.gserviceaccount.com
+  role: roles/editor
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/iam.serviceAccountUser
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/iam.workloadIdentityUser
+- members:
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/owner
+- members:
+  - serviceAccount:service-888807792397@gcp-sa-pubsub.iam.gserviceaccount.com
+  role: roles/pubsub.serviceAgent
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/run.developer
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/run.invoker
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  - serviceAccount:service-888807792397@serverless-robot-prod.iam.gserviceaccount.com
+  role: roles/run.serviceAgent
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/storage.admin
+- members:
+  - serviceAccount:project-888807792397@storage-transfer-service.iam.gserviceaccount.com
+  role: roles/storage.objectViewer
+etag: BwX5i1JV4oE=
+version: 1
+Updated IAM policy for organization [402743803722].
+auditConfigs:
+- auditLogConfigs:
+  - logType: DATA_WRITE
+  - logType: DATA_READ
+  - logType: ADMIN_READ
+  service: allServices
+bindings:
+- members:
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/accesscontextmanager.policyAdmin
+- members:
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/bigquery.dataEditor
+- members:
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  - user:admin-stephane@163gccspm.gccspm.gc.ca
+  - user:cloudbrokeringservices@ssc-cloud.canada.ca
+  role: roles/billing.admin
+- members:
+  - domain:163gccspm.gccspm.gc.ca
+  role: roles/billing.creator
+- members:
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/billing.projectManager
+- members:
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/billing.user
+- members:
+  - group:billing_data_users@163gccspm.gccspm.gc.ca
+  - group:ssc_broker_users@163gccspm.gccspm.gc.ca
+  role: roles/billing.viewer
+- members:
+  - group:ssc_broker_users@163gccspm.gccspm.gc.ca
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/cloudasset.viewer
+- members:
+  - serviceAccount:service-org-402743803722@security-center-api.iam.gserviceaccount.com
+  role: roles/cloudfunctions.serviceAgent
+- members:
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/compute.networkAdmin
+- members:
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/compute.xpnAdmin
+- members:
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/iam.organizationRoleAdmin
+- members:
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/iam.securityAdmin
+- members:
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/iam.serviceAccountAdmin
+- members:
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/iam.serviceAccountTokenCreator
+- members:
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/logging.admin
+- members:
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/logging.configWriter
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/logging.viewer
+- members:
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/orgpolicy.policyAdmin
+- members:
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  role: roles/owner
+- members:
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/pubsub.admin
+- members:
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/resourcemanager.folderAdmin
+- members:
+  - user:admin-breakglass@163gccspm.gccspm.gc.ca
+  role: roles/resourcemanager.folderViewer
+- members:
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  - user:admin-breakglass@163gccspm.gccspm.gc.ca
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/resourcemanager.organizationAdmin
+- members:
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - group:audit_data_broker@163gccspm.gccspm.gc.ca
+  - user:admin-stephane@163gccspm.gccspm.gc.ca
+  - user:cloudbrokeringservices@ssc-cloud.canada.ca
+  role: roles/resourcemanager.organizationViewer
+- members:
+  - domain:163gccspm.gccspm.gc.ca
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/resourcemanager.projectCreator
+- members:
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  role: roles/resourcemanager.projectDeleter
+- members:
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/resourcemanager.projectIamAdmin
+- members:
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/resourcemanager.projectMover
+- members:
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  role: roles/resourcemanager.tagAdmin
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/securitycenter.adminViewer
+- members:
+  - serviceAccount:service-org-402743803722@security-center-api.iam.gserviceaccount.com
+  role: roles/securitycenter.serviceAgent
+- members:
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - serviceAccount:service-org-402743803722@security-center-api.iam.gserviceaccount.com
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/serviceusage.serviceUsageAdmin
+- members:
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  role: roles/serviceusage.serviceUsageConsumer
+- members:
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/storage.admin
+- members:
+  - group:org-readonly@163gccspm.gccspm.gc.ca
+  role: roles/viewer
+etag: BwX5i1J0VS0=
+version: 1
+Updated IAM policy for organization [402743803722].
+auditConfigs:
+- auditLogConfigs:
+  - logType: DATA_WRITE
+  - logType: DATA_READ
+  - logType: ADMIN_READ
+  service: allServices
+bindings:
+- members:
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/accesscontextmanager.policyAdmin
+- members:
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/bigquery.dataEditor
+- members:
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  - user:admin-stephane@163gccspm.gccspm.gc.ca
+  - user:cloudbrokeringservices@ssc-cloud.canada.ca
+  role: roles/billing.admin
+- members:
+  - domain:163gccspm.gccspm.gc.ca
+  role: roles/billing.creator
+- members:
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/billing.projectManager
+- members:
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/billing.user
+- members:
+  - group:billing_data_users@163gccspm.gccspm.gc.ca
+  - group:ssc_broker_users@163gccspm.gccspm.gc.ca
+  role: roles/billing.viewer
+- members:
+  - group:ssc_broker_users@163gccspm.gccspm.gc.ca
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/cloudasset.viewer
+- members:
+  - serviceAccount:service-org-402743803722@security-center-api.iam.gserviceaccount.com
+  role: roles/cloudfunctions.serviceAgent
+- members:
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/compute.networkAdmin
+- members:
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/compute.xpnAdmin
+- members:
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/iam.organizationRoleAdmin
+- members:
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/iam.securityAdmin
+- members:
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/iam.serviceAccountAdmin
+- members:
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/iam.serviceAccountTokenCreator
+- members:
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/logging.admin
+- members:
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/logging.configWriter
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/logging.viewer
+- members:
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/orgpolicy.policyAdmin
+- members:
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  role: roles/owner
+- members:
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/pubsub.admin
+- members:
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/resourcemanager.folderAdmin
+- members:
+  - user:admin-breakglass@163gccspm.gccspm.gc.ca
+  role: roles/resourcemanager.folderViewer
+- members:
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  - user:admin-breakglass@163gccspm.gccspm.gc.ca
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/resourcemanager.organizationAdmin
+- members:
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - group:audit_data_broker@163gccspm.gccspm.gc.ca
+  - user:admin-stephane@163gccspm.gccspm.gc.ca
+  - user:cloudbrokeringservices@ssc-cloud.canada.ca
+  role: roles/resourcemanager.organizationViewer
+- members:
+  - domain:163gccspm.gccspm.gc.ca
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/resourcemanager.projectCreator
+- members:
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  role: roles/resourcemanager.projectDeleter
+- members:
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/resourcemanager.projectIamAdmin
+- members:
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/resourcemanager.projectMover
+- members:
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  role: roles/resourcemanager.tagAdmin
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/securitycenter.adminViewer
+- members:
+  - serviceAccount:service-org-402743803722@security-center-api.iam.gserviceaccount.com
+  role: roles/securitycenter.serviceAgent
+- members:
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - serviceAccount:service-org-402743803722@security-center-api.iam.gserviceaccount.com
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/serviceusage.serviceUsageAdmin
+- members:
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  role: roles/serviceusage.serviceUsageConsumer
+- members:
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/storage.admin
+- members:
+  - group:org-readonly@163gccspm.gccspm.gc.ca
+  role: roles/viewer
+etag: BwX5i1KPWMA=
+version: 1
+Updated IAM policy for organization [402743803722].
+auditConfigs:
+- auditLogConfigs:
+  - logType: DATA_WRITE
+  - logType: DATA_READ
+  - logType: ADMIN_READ
+  service: allServices
+bindings:
+- members:
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/accesscontextmanager.policyAdmin
+- members:
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/bigquery.dataEditor
+- members:
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  - user:admin-stephane@163gccspm.gccspm.gc.ca
+  - user:cloudbrokeringservices@ssc-cloud.canada.ca
+  role: roles/billing.admin
+- members:
+  - domain:163gccspm.gccspm.gc.ca
+  role: roles/billing.creator
+- members:
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/billing.projectManager
+- members:
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/billing.user
+- members:
+  - group:billing_data_users@163gccspm.gccspm.gc.ca
+  - group:ssc_broker_users@163gccspm.gccspm.gc.ca
+  role: roles/billing.viewer
+- members:
+  - group:ssc_broker_users@163gccspm.gccspm.gc.ca
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/cloudasset.viewer
+- members:
+  - serviceAccount:service-org-402743803722@security-center-api.iam.gserviceaccount.com
+  role: roles/cloudfunctions.serviceAgent
+- members:
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/compute.networkAdmin
+- members:
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/compute.xpnAdmin
+- members:
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/iam.organizationRoleAdmin
+- members:
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/iam.securityAdmin
+- members:
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/iam.serviceAccountAdmin
+- members:
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/iam.serviceAccountTokenCreator
+- members:
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/logging.admin
+- members:
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/logging.configWriter
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/logging.viewer
+- members:
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/orgpolicy.policyAdmin
+- members:
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  role: roles/owner
+- members:
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/pubsub.admin
+- members:
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/resourcemanager.folderAdmin
+- members:
+  - user:admin-breakglass@163gccspm.gccspm.gc.ca
+  role: roles/resourcemanager.folderViewer
+- members:
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  - user:admin-breakglass@163gccspm.gccspm.gc.ca
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/resourcemanager.organizationAdmin
+- members:
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - group:audit_data_broker@163gccspm.gccspm.gc.ca
+  - user:admin-stephane@163gccspm.gccspm.gc.ca
+  - user:cloudbrokeringservices@ssc-cloud.canada.ca
+  role: roles/resourcemanager.organizationViewer
+- members:
+  - domain:163gccspm.gccspm.gc.ca
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/resourcemanager.projectCreator
+- members:
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  role: roles/resourcemanager.projectDeleter
+- members:
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/resourcemanager.projectIamAdmin
+- members:
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/resourcemanager.projectMover
+- members:
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - user:admin-cspm@163gccspm.gccspm.gc.ca
+  role: roles/resourcemanager.tagAdmin
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/securitycenter.adminViewer
+- members:
+  - serviceAccount:service-org-402743803722@security-center-api.iam.gserviceaccount.com
+  role: roles/securitycenter.serviceAgent
+- members:
+  - group:administrators-163gccsmp@163gccspm.gccspm.gc.ca
+  - serviceAccount:service-org-402743803722@security-center-api.iam.gserviceaccount.com
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/serviceusage.serviceUsageAdmin
+- members:
+  - serviceAccount:service-26798028328@gcp-sa-yakima.iam.gserviceaccount.com
+  role: roles/serviceusage.serviceUsageConsumer
+- members:
+  - serviceAccount:tfadmin-gccspm-dev@gccspm-dev-seed-project.iam.gserviceaccount.com
+  role: roles/storage.admin
+- members:
+  - group:org-readonly@163gccspm.gccspm.gc.ca
+  role: roles/viewer
+etag: BwX5i1Ks7go=
+version: 1
+Service identity created: service-888807792397@serverless-robot-prod.iam.gserviceaccount.com
+Service identity created
+Service identity created: service-888807792397@gcp-sa-cloudasset.iam.gserviceaccount.com
+Updated IAM policy for project [gccspm-cac-customer-poc2].
+bindings:
+- members:
+  - serviceAccount:service-888807792397@gcp-sa-binaryauthorization.iam.gserviceaccount.com
+  role: roles/binaryauthorization.serviceAgent
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/cloudscheduler.admin
+- members:
+  - serviceAccount:service-888807792397@gcp-sa-cloudscheduler.iam.gserviceaccount.com
+  role: roles/cloudscheduler.serviceAgent
+- members:
+  - serviceAccount:service-888807792397@compute-system.iam.gserviceaccount.com
+  role: roles/compute.serviceAgent
+- members:
+  - serviceAccount:service-888807792397@container-engine-robot.iam.gserviceaccount.com
+  role: roles/container.serviceAgent
+- members:
+  - serviceAccount:service-888807792397@container-analysis.iam.gserviceaccount.com
+  role: roles/containeranalysis.ServiceAgent
+- members:
+  - serviceAccount:service-888807792397@containerregistry.iam.gserviceaccount.com
+  role: roles/containerregistry.ServiceAgent
+- members:
+  - serviceAccount:888807792397-compute@developer.gserviceaccount.com
+  - serviceAccount:888807792397@cloudservices.gserviceaccount.com
+  role: roles/editor
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/iam.serviceAccountUser
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/iam.workloadIdentityUser
+- members:
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/owner
+- members:
+  - serviceAccount:service-888807792397@gcp-sa-pubsub.iam.gserviceaccount.com
+  role: roles/pubsub.serviceAgent
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/run.developer
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/run.invoker
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  - serviceAccount:service-888807792397@serverless-robot-prod.iam.gserviceaccount.com
+  role: roles/run.serviceAgent
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/storage.admin
+- members:
+  - serviceAccount:project-888807792397@storage-transfer-service.iam.gserviceaccount.com
+  role: roles/storage.objectViewer
+etag: BwX5i1L9drE=
+version: 1
+Updated IAM policy for project [gccspm-cac-customer-poc2].
+bindings:
+- members:
+  - serviceAccount:service-888807792397@gcp-sa-binaryauthorization.iam.gserviceaccount.com
+  role: roles/binaryauthorization.serviceAgent
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/cloudscheduler.admin
+- members:
+  - serviceAccount:service-888807792397@gcp-sa-cloudscheduler.iam.gserviceaccount.com
+  role: roles/cloudscheduler.serviceAgent
+- members:
+  - serviceAccount:service-888807792397@compute-system.iam.gserviceaccount.com
+  role: roles/compute.serviceAgent
+- members:
+  - serviceAccount:service-888807792397@container-engine-robot.iam.gserviceaccount.com
+  role: roles/container.serviceAgent
+- members:
+  - serviceAccount:service-888807792397@container-analysis.iam.gserviceaccount.com
+  role: roles/containeranalysis.ServiceAgent
+- members:
+  - serviceAccount:service-888807792397@containerregistry.iam.gserviceaccount.com
+  role: roles/containerregistry.ServiceAgent
+- members:
+  - serviceAccount:888807792397-compute@developer.gserviceaccount.com
+  - serviceAccount:888807792397@cloudservices.gserviceaccount.com
+  role: roles/editor
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/iam.serviceAccountUser
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/iam.workloadIdentityUser
+- members:
+  - user:admin-maninder@163gccspm.gccspm.gc.ca
+  role: roles/owner
+- members:
+  - serviceAccount:service-888807792397@gcp-sa-pubsub.iam.gserviceaccount.com
+  role: roles/pubsub.serviceAgent
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/run.developer
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/run.invoker
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  - serviceAccount:service-888807792397@serverless-robot-prod.iam.gserviceaccount.com
+  role: roles/run.serviceAgent
+- members:
+  - serviceAccount:cac-solution-402743803722-sa@gccspm-cac-customer-poc2.iam.gserviceaccount.com
+  role: roles/storage.admin
+- members:
+  - serviceAccount:service-888807792397@gcp-sa-cloudasset.iam.gserviceaccount.com
+  role: roles/storage.objectAdmin
+- members:
+  - serviceAccount:project-888807792397@storage-transfer-service.iam.gserviceaccount.com
+  role: roles/storage.objectViewer
+etag: BwX5i1MXtd0=
+version: 1

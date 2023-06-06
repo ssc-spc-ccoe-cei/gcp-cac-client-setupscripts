@@ -1,0 +1,11 @@
+###GCP Service Account Short Name
+SERVICE_ACCOUNT="cac-solution-195864723-sa"
+###GCP Organization Name
+ORG_NAME="example.ca"
+###GC Cloud Usage Profile number
+GC_PROFILE="1"
+#############From SSC
+SSC_BUCKET_NAME="gs://cac-solution-exampleca/"
+POLICY_REPO="https://source.developers.google.com/p/gcp-cac-solution-build/r/cac_policies"
+REGION="northamerica-northeast1"
+CAC_IMAGE="northamerica-northeast1-docker.pkg.dev/gcp-cac-solution-build/cac-opa-python/cac-solution:c7077c4"
