@@ -11,7 +11,7 @@ DEFAULT_PROJECT="$(gcloud config get-value project)"
 CLOUD_RUN="compliance-analysis"
 LOG_FILE="deployment-setup.log"
 # Set cloud scheduler job interval
-SCHEDULE="0 0 * * *"
+SCHEDULE="0 6 * * *"
 BRANCH="master"
 LOG_LEVEL="INFO"
 DATE=$(date)
@@ -282,7 +282,7 @@ function storage_bucket {
     serviceAccount:service-$PROJECT_NUMBER@gcp-sa-cloudasset.iam.gserviceaccount.com:objectAdmin \
     gs://${BUCKET_NAME} >>$LOG_FILE 2>&1
 
-  RUN_HOUR="02:00:00-04:00"
+  RUN_HOUR="03:00:00-04:00"
   ORDINAL=$((($RANDOM % 10 + 1)))
 
   gcloud transfer jobs list --job-statuses=enabled | grep nightly_compliance_transfer > /dev/null 2>&1
