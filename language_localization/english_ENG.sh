@@ -25,7 +25,7 @@ LANG_DEPLOYMENT_PROMPT="
 
 LANG_APIS="
 
-INFO: Enabling Required Project Services: Cloud Run, Cloud Storage and Cloud Scheduler"
+INFO: Enabling Required Project Services: Cloud Run, Cloud Storage, Binary auhtorization and Cloud Scheduler"
 
 LANG_SA_SETUP="
 

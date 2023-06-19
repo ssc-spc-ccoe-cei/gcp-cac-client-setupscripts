@@ -1,16 +1,16 @@
 #############GCP Service Account Short Name###########################
-SERVICE_ACCOUNT=""
+SERVICE_ACCOUNT="cac-solution-402743803722-sa"
 #############GCP Organization Name###########################
-ORG_NAME=""
+ORG_NAME="163gccspm.gccspm.gc.ca"
 #############Project ID###########################
-PROJECT_ID=""
+PROJECT_ID="concise-upgrade-390316"
 #############GC Cloud Usage Profile number###########################
-GC_PROFILE=""
+GC_PROFILE="3"
 #############Region where solution will be deployed###########################
 REGION="northamerica-northeast1"
 #############The Following information will be provided by SSC Team###########################
-SSC_BUCKET_NAME=""
-POLICY_REPO=""
-CAC_IMAGE=""
+SSC_BUCKET_NAME="gs://cac-solution-data-hub"
+POLICY_REPO="https://source.developers.google.com/p/gccspm-cac-solution-build/r/cac_policies"
+CAC_IMAGE="northamerica-northeast1-docker.pkg.dev/gccspm-cac-solution-build/cac-container-image/cac-solution:68f0146"
 
 

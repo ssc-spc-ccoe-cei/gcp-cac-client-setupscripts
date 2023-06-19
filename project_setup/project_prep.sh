@@ -15,8 +15,8 @@ PROJECT_ROLES=("iam.workloadIdentityUser" "run.developer" "iam.serviceAccountUse
 ORG_ROLES=("securitycenter.adminViewer" "logging.viewer" "cloudasset.viewer")
 
 
-SERVICE_APIS=("run" "storagetransfer" "cloudasset")
-PROJECT_APIS=("run" "cloudscheduler" "storage" "cloudasset" "storagetransfer" "securitycenter" "containerregistry")
+SERVICE_APIS=("run" "storagetransfer" "cloudasset" "binaryauthorization")
+PROJECT_APIS=("run" "cloudscheduler" "storage" "cloudasset" "storagetransfer" "securitycenter" "containerregistry" "binaryauthorization")
 
 
 function input_language {
@@ -125,6 +125,9 @@ echo "
 ##
 ## CloudRun Robot Account: 
 ## service-$PROJECT_NUMBER@serverless-robot-prod.iam.gserviceaccount.com
+##
+## Binary authorization Robot Account: 
+## service-$PROJECT_NUMBER@gcp-sa-binaryauthorization.iam.gserviceaccount.com
 ##
 ## Cloud Storage Robot Account:    
 ## project-$PROJECT_NUMBER@storage-transfer-service.iam.gserviceaccount.com              

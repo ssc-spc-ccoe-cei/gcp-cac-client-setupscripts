@@ -23,7 +23,7 @@ LANG_DEPLOYMENT_PROMPT="
 
 LANG_APIS="
 
-INFO: Activation des services de projet requis : Cloud Run, Cloud Storage et Cloud Scheduler"
+INFO: Activation des services de projet requis : Cloud Run, Binary authorization, Cloud Storage et Cloud Scheduler"
 
 LANG_SA_SETUP="
 INFO : Créer un compte de service CaC et ajouter des permissions"
