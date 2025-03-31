@@ -1,8 +1,8 @@
 #!/bin/bash
 
-set -o errexit
+#set -o errexit
 set -o pipefail
-#TEST COMMENT FOR MANINDER
+
 ## declare an array of policies
 declare -a ROLES=("roles/iam.workloadIdentityUser" "roles/run.developer" "roles/iam.serviceAccountUser" "roles/storage.admin" "roles/cloudscheduler.admin" "roles/run.invoker" "roles/run.serviceAgent" "roles/cloudasset.viewer" "roles/logging.viewer" "roles/securitycenter.adminViewer")
 ROLE_COUNT=$(echo "${ROLES[@]}" | wc -w)
@@ -167,7 +167,7 @@ function cloudrun_service {
         apiVersion: serving.knative.dev/v1
         kind: Service
         metadata:
-          name: cac-solution-dev
+          name: ${CLOUD_RUN}
           labels:
             cloud.googleapis.com/location: northamerica-northeast1
           annotations:
@@ -187,7 +187,7 @@ function cloudrun_service {
               serviceAccountName: ${SERVICE_ACCOUNT}
               containers:
               - name: cac-python-1
-                image: ${REGION}-docker.pkg.dev/${PROJECT_ID}/cac-python/cac-app:${IMAGE_TAG}
+                image: ${REGION}-docker.pkg.dev/${BUILD_PROJECT_ID}/cac-python/cac-app:${IMAGE_TAG}
                 imagePullPolicy: Always
                 ports:
                 - name: http1
@@ -265,7 +265,7 @@ function cloudrun_service {
                 - name: GR03_01_CUSTOMER_IDS
                   value: "${CUSTOMER_IDS}"
                 - name: GR03_01_ALLOWED_CIDRS
-                  value: "${ALLOWED_CIDRS}"
+                  value: "${ALLOWED_IPS}"
                 - name: GR05_01_SECURITY_CATEGORY_KEY
                   value: "${SECURITY_CATEGORY_KEY}"
                 - name: GR07_03_ALLOWED_CA_ISSUERS
