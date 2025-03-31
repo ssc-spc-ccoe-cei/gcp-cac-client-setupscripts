@@ -1,18 +1,16 @@
 #!/bin/bash
 
-#set -o errexit
+set -o errexit
 set -o pipefail
-
+#TEST COMMENT FOR MANINDER
 ## declare an array of policies
 declare -a ROLES=("roles/iam.workloadIdentityUser" "roles/run.developer" "roles/iam.serviceAccountUser" "roles/storage.admin" "roles/cloudscheduler.admin" "roles/run.invoker" "roles/run.serviceAgent" "roles/cloudasset.viewer" "roles/logging.viewer" "roles/securitycenter.adminViewer")
 ROLE_COUNT=$(echo "${ROLES[@]}" | wc -w)
-DEFAULT_PROJECT="$(gcloud config get-value project)"
 # Declare cloud run service name
 CLOUD_RUN="compliance-analysis"
 LOG_FILE="deployment-setup.log"
 # Set cloud scheduler job interval
-SCHEDULE="0 6 * * *"
-BRANCH="master"
+SCHEDULE="0 0 * * *"
 LOG_LEVEL="INFO"
 DATE=$(date)
 function clean_up {
@@ -23,7 +21,6 @@ function clean_up {
     echo "Deleted $dir"
   done
 }
-
 function input_language {
   ## Allows user to set preferred install language.
   read -p " 
@@ -59,70 +56,13 @@ function config_init {
 
   ## Gathers required information for installation
   printf "$LANG_SETUP_PROMPT"
+  REQUIRED_VARIABLES=("PROJECT_ID" "SERVICE_ACCOUNT" "ORG_NAME" "GC_PROFILE" "SECURITY_CATEGORY_KEY" "PRIVILEGED_USERS_LIST" "REGULAR_USERS_LIST" "ALLOWED_DOMAINS" "DENY_DOMAINS" "HAS_GUEST_USERS" "HAS_FEDERATED_USERS" "ALLOWED_IPS" "CUSTOMER_IDS" "CA_ISSUERS" "ORG_ADMIN_GROUP_EMAIL" "BREAKGLASS_USER_EMAIL" "SSC_BUCKET_NAME" "POLICY_REPO" "OPA_IMAGE" "REGION")
 
-  if [ -z "$SERVICE_ACCOUNT" ]; then
-    read -p "$LANG_SERVICE_ACCOUNT" service_account_input
-    if [ -n "$service_account_input" ]; then
-      SERVICE_ACCOUNT="$(tr A-Z a-z <<<$service_account_input)"
+  for setting in "${REQUIRED_VARIABLES[@]}"; do
+    if [ -z "${!setting}" ]; then
+      echo "ERROR: $setting is not set. Please set the variable in the collector_config file"
     fi
-  fi
-  if [ -z "$PROJECT_ID" ]; then
-    read -p "'$DEFAULT_PROJECT' $LANG_PROJECT " project_input
-    if [ -n "$project_input" ]; then
-      PROJECT_ID=$project_input
-    else
-      PROJECT_ID=$DEFAULT_PROJECT
-    fi
-  fi
-  if [ -z "$ORG_NAME" ]; then
-    read -p "$LANG_ORG_NAME" org_name_input
-    if [ -n "$org_name_input" ]; then
-      ORG_NAME="$(tr A-Z a-z <<<$org_name_input)"
-    fi
-  fi
-  if [ -z "$GC_PROFILE" ]; then
-    read -p "$LANG_GC_PROFILE" profile
-    if [ -n "$profile" ]; then
-      GC_PROFILE="$(tr A-Z a-z <<<$profile)"
-    fi
-  fi
-  if [ -z "$SSC_BUCKET_NAME" ]; then
-    read -p "$LANG_BUCKET" bucket_name_input
-    if [ -n "$bucket_name_input" ]; then
-      SSC_BUCKET_NAME="$(tr A-Z a-z <<<$bucket_name_input)"
-    fi
-  fi
-  if [ -z "$POLICY_REPO" ]; then
-    read -p "$LANG_POLICY" policy_repo_input
-    if [ -n "$policy_repo_input" ]; then
-      POLICY_REPO="$(tr A-Z a-z <<<$policy_repo_input)"
-    fi
-  fi
-  if [ -z "$CAC_IMAGE" ]; then
-    read -p "$LANG_CAC_IMAGE" image
-    if [ -n "$image" ]; then
-      CAC_IMAGE="$(tr A-Z a-z <<<$image)"
-    fi
-  fi
-  if [ -z "$REGION" ]; then
-    read -p "$LANG_REGION" region_number
-    # Set the selected region as a variable
-    case $region_number in
-    1)
-      REGION="northamerica-northeast1"
-      ;;
-    2)
-      REGION="northamerica-northeast2"
-      ;;
-    *)
-      tput setaf 1
-      echo "" 1>&2
-      echo $LANG_ERROR
-      tput sgr0
-      exit 1
-      ;;
-    esac
-  fi
+  done
 
   PROJECT_NUMBER=$(gcloud projects describe ${PROJECT_ID} --format="value(projectNumber)" 2>&1)
   ORG_ID="$(gcloud organizations list --filter=${ORG_NAME} --format="value(ID)" 2>&1)"
@@ -134,27 +74,6 @@ function config_init {
   # lower casing bucket name
   BUCKET_NAME="compliance-hub-"$(echo ${ACCOUNT_NUMBER} | tr '[:upper:]' '[:lower:]')
   SERVICE_ACCOUNT="${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com"
-}
-
-function config_validation {
-  printf "$LANG_VALIDATION_PROMPT"
-
-  # Prompt user to confirm the values of the variables
-
-  read -p "$CONFIRM_PROJECT '$PROJECT_ID' $PROMPT" confirm_project
-  read -p "$CONFIRM_REGION '$REGION' $PROMPT" confirm_region
-  read -p "$CONFIRM_SERVICE_ACCOUNT '$SERVICE_ACCOUNT' $PROMPT" confirm_sa
-
-  # Check if the user's responses match the values of the variables
-  if [[ "$confirm_project" != "$PROJECT_ID" || "$confirm_region" != "$REGION" || "$confirm_sa" != "$SERVICE_ACCOUNT" ]]; then
-    tput setaf 1
-    echo "" 1>&2
-    echo $LANG_ERROR
-    tput sgr0
-    echo ""
-    exit 1
-  fi
-
 }
 
 #############################################
@@ -178,68 +97,10 @@ function service_account {
   gcloud iam service-accounts add-iam-policy-binding $SERVICE_ACCOUNT \
     --member="user:$(gcloud config list account --format "value(core.account)")" \
     --role="roles/iam.serviceAccountTokenCreator" >>$LOG_FILE 2>&1
-  sleep 30
-  # validation echo
-  echo $ROLE_VALIDATION_PROMPT
-  echo $ROLE_VALIDATION_PROMPT >>$LOG_FILE 2>&1
-  # Get the IAM policy for the current project
-  ATTACH_IAM_POLICY=$(gcloud projects get-iam-policy $PROJECT_ID --flatten="bindings[].members" \
-    --format='table(bindings.role)' --filter="bindings.members:$SERVICE_ACCOUNT AND \
-  -deleted" && gcloud organizations get-iam-policy $ORG_ID --flatten="bindings[].members" \
-    --format='table(bindings.role)' --filter="bindings.members:$SERVICE_ACCOUNT AND -deleted")
-  # ATTACHED_FILTERED_ROLE=$(echo "$IAM_POLICY" | tr ' ' '\n' | sort | uniq)
-  ATTACHED_ROLE_COUNT=($(echo "$ATTACH_IAM_POLICY" |grep -v ^$  wc -l))
-  ATTACHED_ROLE_COUNT="$((ATTACHED_ROLE_COUNT - 2))"
 
-  if (($ATTACHED_ROLE_COUNT > $ROLE_COUNT)); then
-    tput setaf 3
-    echo "" 1>&2
-    echo "$SA_POLICY_ERROR"
-    echo "$SA_CURRENT_POLICY $ATTACH_IAM_POLICY"
-    echo ""
-    echo "$SA_REQUIRED_POLICY"
-    ## looping though role array
-    for i in "${ROLES[@]}"; do
-      echo "$i"
-    done
-
-    read -p "$POLICY_CONFIRMATION" sa_consent
-    sa_consent=$(echo "$sa_consent" | tr '[:upper:]' '[:lower:]')
-    if [ "$sa_consent" == "y" ]; then
-      tput sgr0
-      echo $POLICY_CONTINUE
-    else
-      tput setaf 1
-      echo "" 1>&2
-      echo $POLICY_EXIT
-      tput sgr0
-      exit 1
-
-    fi
-  else
-    for i in "${ROLES[@]}"; do
-      if [[ $ATTACH_IAM_POLICY == *"$i"* ]]; then
-        echo "INFO: $i $ROLES_VALIDATION '$SERVICE_ACCOUNT'"
-      else
-        MISSING_ROLES="$MISSING_ROLES'$i'"
-      fi
-
-    done
-    if [ -z "$MISSING_ROLES" ]; then
-      echo ${ROLES_VALIDATION_SUCCESS}
-    else
-      tput setaf 3
-      echo "" 1>&2
-      echo ${ROLES_VALIDATION_ERROR}
-      tput sgr0
-      echo "$MISSING_ROLES"
-      exit 1
-    fi
-  fi
 }
 
 function storage_bucket {
-
   # Create the bucket
   gsutil ls -b gs://$BUCKET_NAME >>$LOG_FILE 2>&1
   ret=$?
@@ -261,8 +122,8 @@ function storage_bucket {
   # Create the directories
   FOLDER_COUNT=$(gsutil ls gs://$BUCKET_NAME | wc -l | tr -d '[:space:]')
 
-  if [ $FOLDER_COUNT -lt 12 ]; then
-    for i in {1..12}; do
+  if [ $FOLDER_COUNT -lt 13 ]; then
+    for i in {1..13}; do
       echo $CREATE_FOLDERS >>$LOG_FILE 2>&1
       echo $CREATE_FOLDERS
       mkdir guardrail-$(printf "%02d" $i)
@@ -271,6 +132,8 @@ function storage_bucket {
       rm -rf guardrail-$(printf "%02d" $i)
     done
   fi
+
+  # Set the IAM policy for the bucket
   API_ROLES=("legacyBucketReader" "objectViewer" "legacyBucketWriter")
   for role in ${API_ROLES[@]}; do
     gsutil --impersonate-service-account="$SERVICE_ACCOUNT" iam ch \
@@ -282,18 +145,17 @@ function storage_bucket {
     serviceAccount:service-$PROJECT_NUMBER@gcp-sa-cloudasset.iam.gserviceaccount.com:objectAdmin \
     gs://${BUCKET_NAME} >>$LOG_FILE 2>&1
 
-  RUN_HOUR="03:00:00-04:00"
+  RUN_HOUR="02:00:00-04:00"
   ORDINAL=$((($RANDOM % 10 + 1)))
 
-  gcloud transfer jobs list --job-statuses=enabled | grep nightly_compliance_transfer > /dev/null 2>&1
+  # Set up cloud storage transfer job
+  gcloud transfer jobs list --job-statuses=enabled | grep nightly_compliance_transfer >/dev/null 2>&1
   ret=$?
   if [ $ret -ne 0 ]; then
-    gcloud transfer jobs create gs://${BUCKET_NAME}/ ${SSC_BUCKET_NAME} \
+    gcloud transfer jobs create gs://${BUCKET_NAME}/ ${SSC_BUCKET_NAME}/${ORG_NAME}/ \
       --name "nightly_compliance_transfer_${ORDINAL}" \
       --include-modified-after-relative=1d \
-      --schedule-starts=$(date -d "+1day" -u +"%Y-%m-%dT${RUN_HOUR}") \
-      --schedule-repeats-every=p1d \
-      --include-prefixes=results >>$LOG_FILE 2>&1
+      --schedule-starts=$(date -d "+1day" -u +"%Y-%m-%dT${RUN_HOUR}")
   fi
 }
 
@@ -301,33 +163,155 @@ function cloudrun_service {
 
   # Run the Cloud Run job using the specified image and publishing the logs
   echo $CREATE_CRUN >>$LOG_FILE 2>&1
-  gcloud beta --impersonate-service-account="${SERVICE_ACCOUNT}" \
-    run deploy $CLOUD_RUN \
-    --region=${REGION} \
-    --service-account="${SERVICE_ACCOUNT}" \
-    --platform managed \
-    --min-instances=0 \
-    --max-instances=1 \
-    --execution-environment=gen2 \
-    --ingress=internal \
-    --no-allow-unauthenticated \
-    --cpu=4 \
-    --memory=4Gi \
-    --timeout=60m \
-    --image $CAC_IMAGE \
-    --set-env-vars "LOG_LEVEL="${LOG_LEVEL}"" \
-    --set-env-vars "GCP_PROJECT="${PROJECT_ID}"" \
-    --set-env-vars "GCS_BUCKET="${BUCKET_NAME}"" \
-    --set-env-vars "ORG_NAME="${ORG_NAME}"" \
-    --set-env-vars "ORG_ID="${ORG_ID}"" \
-    --set-env-vars "POLICY_REPO="${POLICY_REPO}"" \
-    --set-env-vars "BRANCH="${BRANCH}"" \
-    --set-env-vars "GC_PROFILE="${GC_PROFILE}"" \
-    --port 8443 >>$LOG_FILE 2>&1
+  cat <<EOF >cloudrun.yaml
+        apiVersion: serving.knative.dev/v1
+        kind: Service
+        metadata:
+          name: cac-solution-dev
+          labels:
+            cloud.googleapis.com/location: northamerica-northeast1
+          annotations:
+        spec:
+          template:
+            metadata:
+              labels:
+                run.googleapis.com/startupProbeType: Default
+              annotations:
+                autoscaling.knative.dev/maxScale: '1'
+                run.googleapis.com/execution-environment: gen2
+                run.googleapis.com/startup-cpu-boost: 'true'
+                run.googleapis.com/container-dependencies: '{"cac-python-1":["opa-1"]}'
+            spec:
+              containerConcurrency: 80
+              timeoutSeconds: 300
+              serviceAccountName: ${SERVICE_ACCOUNT}
+              containers:
+              - name: cac-python-1
+                image: ${REGION}-docker.pkg.dev/${PROJECT_ID}/cac-python/cac-app:${IMAGE_TAG}
+                imagePullPolicy: Always
+                ports:
+                - name: http1
+                  containerPort: ${APP_PORT}
+                env:
+                - name: APP_PORT
+                  value: "${APP_PORT}"
+                - name: LOG_LEVEL
+                  value: "INFO"
+                - name: GCP_PROJECT
+                  value: "${PROJECT_ID}"
+                - name: ORG_NAME
+                  value: "${ORG_NAME}"
+                - name: ORG_ID
+                  value: "${ORG_ID}"
+                - name: GCS_BUCKET
+                  value: "${GCS_BUCKET}"
+                - name: GC_PROFILE
+                  value: "${GC_PROFILE}"
+                - name: TENANT_DOMAIN
+                  value: "${TENANT_DOMAIN}"
+                - name: POLICY_VERSION
+                  value: "${POLICY_VERSION}"
+                - name: APP_VERSION
+                  value: "${IMAGE_TAG}"
+                - name: CUSTOMER_ID
+                  value: "${DIRECTORY_CUSTOMER_ID}"
+                - name: ORG_ADMIN_GROUP_EMAIL
+                  value: "${ORG_ADMIN_GROUP_EMAIL}"
+                - name: BREAKGLASS_USER_EMAIL
+                  value: "${BREAKGLASS_USER_EMAIL}"
+                resources:
+                  limits:
+                    cpu: 4000m
+                    memory: 4Gi
+              - name: opa-1
+                image: "${OPA_IMAGE}"
+                imagePullPolicy: Always
+                command: ['/bin/bash']
+                args: 
+                  - -c
+                  - |
+                    rm -Rf /mnt/policies/*
+                    git config --global credential.helper gcloud.sh
+                    git clone --quiet ${POLICY_REPO} /mnt/policies
+                    cd /mnt/policies
+                    git checkout ${BRANCH}
+                    ls -l /mnt/policies
+                    /usr/bin/opa run --server --addr :8181 --disable-telemetry /mnt/policies
+                env:
+                - name: GR11_04_ORG_ID
+                  value: "${ORG_ID}"
+                - name: GR01_03_ORG_ADMIN_GROUP_EMAIL
+                  value: "${ORG_ADMIN_GROUP_EMAIL}"
+                - name: GR02_01_ORG_ADMIN_GROUP_EMAIL
+                  value: "${ORG_ADMIN_GROUP_EMAIL}"
+                - name: GR01_06_PRIVILEGED_USERS
+                  value: "${PRIVILEGED_USERS_LIST}"
+                - name: GR01_06_REGULAR_USERS
+                  value: "${REGULAR_USERS_LIST}"
+                - name: GR02_01_PRIVILEGED_USERS
+                  value: "${PRIVILEGED_USERS_LIST}"
+                - name: GR02_01_REGULAR_USERS
+                  value: "${REGULAR_USERS_LIST}"
+                - name: GR02_08_ALLOWED_DOMAINS
+                  value: "${ALLOWED_DOMAINS}"
+                - name: GR02_08_DENY_DOMAINS
+                  value: "${DENY_DOMAINS}"
+                - name: GR02_09_HAS_GUEST_USERS
+                  value: "${HAS_GUEST_USERS}"
+                - name: GR02_10_HAS_GUEST_USERS
+                  value: "${HAS_GUEST_USERS}"
+                - name: GR03_01_HAS_FEDERATED_USERS
+                  value: "${HAS_FEDERATED_USERS}"
+                - name: GR03_01_CUSTOMER_IDS
+                  value: "${CUSTOMER_IDS}"
+                - name: GR03_01_ALLOWED_CIDRS
+                  value: "${ALLOWED_CIDRS}"
+                - name: GR05_01_SECURITY_CATEGORY_KEY
+                  value: "${SECURITY_CATEGORY_KEY}"
+                - name: GR07_03_ALLOWED_CA_ISSUERS
+                  value: "${CA_ISSUERS}"
+                - name: GR13_02_BREAKGLASS_USER_EMAIL
+                  value: "${BREAKGLASS_USER_EMAIL}"
+                - name: GR13_03_BREAKGLASS_USER_EMAIL
+                  value: "${BREAKGLASS_USER_EMAIL}"
+                resources:
+                  limits:
+                    cpu: 1000m
+                    memory: 2Gi
+                volumeMounts:
+                - name: policies
+                  mountPath: /mnt/policies
+                startupProbe:
+                  initialDelaySeconds: 30
+                  timeoutSeconds: 10
+                  periodSeconds: 10
+                  failureThreshold: 5
+                  httpGet:
+                    path: /
+                    port: 8181
+              volumes:
+              - name: policies
+                emptyDir:
+                  medium: Memory
+                  sizeLimit: 512Mi
+          traffic:
+          - percent: 100
+            latestRevision: true
+EOF
 
   # a buffer so google is ready for subsequent call
-  sleep 10
 
+  gcloud --impersonate-service-account=${SERVICE_ACCOUNT} \
+    run services replace cloudrun.yaml \
+    >>$LOG_FILE 2>&1
+  
+  if [ ${BIN_AUTH_ENABLED:-"false"} = "true" ]; then
+    gcloud --impersonate-service-account=${SERVICE_ACCOUNT} \
+      run services update ${CLOUD_RUN} \
+      --binary-authorization=default \
+      --region ${REGION} \
+      >>$LOG_FILE 2>&1
+  fi
   # Get the URL of the Cloud Run service
 
   CSERVICE_URL=$(gcloud run services describe "$CLOUD_RUN" --format='value(status.url)' --region="$REGION")
@@ -354,14 +338,8 @@ input_language
 echo "$LANG_DEPLOYMENT_PROMPT"
 echo "$LANG_DEPLOYMENT_PROMPT" >>$LOG_FILE
 
-if [ -f collector_config ]; then
-  echo "$LANG_CONFIG_PROMPT"
-  . ./collector_config
-  config_init
-else
-  config_init
-  config_validation
-fi
+config_init
+
 service_account
 storage_bucket
 cloudrun_service
@@ -373,4 +351,4 @@ echo "
 ## Compliance Proof GCS Bucket: gs://$BUCKET_NAME       
 ## Cloud Run Service:  $CSERVICE_URL                                 
 ##
-#################################################################               "                             
+#################################################################               "

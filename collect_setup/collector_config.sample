@@ -1,14 +1,87 @@
-#############GCP Service Account Short Name###########################
-SERVICE_ACCOUNT="cac-Name-195864723-sa"
-#############GCP Organization Name###########################
-ORG_NAME="example.ca"
-#############Project ID###########################
-PROJECT_ID="test-totem-389113"
-#############GC Cloud Usage Profile number###########################
-GC_PROFILE="1"
-#############Region where solution will be deployed###########################
-REGION="northamerica-northeast1"
-#############The Following information will be provided by SSC Team###########################
-SSC_BUCKET_NAME="gs://cac-exampleca/"
-POLICY_REPO="https://source.developers.google.com/p/gcp-build/r/cac_policies"
-CAC_IMAGE="northamerica-northeast1-docker.pkg.dev/gcp-d/c-java/cac:c7077c4"
+###--------------------------------------
+# Python app.py deployment settings
+#----------------------------------------
+### Azure Tenant Domain (if any)
+export TENANT_DOMAIN="mytenant.onmicrosoft.com"
+### GCP Organization Information
+export PROJECT_ID="cacv2-devproj"
+# Organization Name
+export ORG_NAME="example.com"
+# GC Cloud Usage Profile number
+export GC_PROFILE="1"
+export GCP_PROJECT="cacv2-devproj"
+
+
+###--------------------------------------
+# Python app.py deployment settings
+#----------------------------------------
+# GR1.3
+export ORG_ADMIN_GROUP_EMAIL="gcp-organization-admins@example.com"
+
+# GR5.1
+# Tag Key used to identify security classification of GCP resources
+# example: a GCS bucket can be identified as containing Protected "A" data by tagging it
+# DATA_CLASSIFICATION: Protected A
+export SECURITY_CATEGORY_KEY="DATA_CLASSIFICATION"
+
+# GR1.6 & GR2.1
+# List of Privileged Users and their regular account names
+# Format: '(user:admin1@example.com,user:admin2@example.com,user:admin3@example.com)'
+export PRIVILEGED_USERS_LIST="user:admin-alice@example.com,user:admin-bob@example.com,user:admin-charlie@example.com"
+export REGULAR_USERS_LIST="user:alice@example.com,user:bob@example.com,user:charlie@example.com"
+
+# GR2.8
+# List of Domains that are allowed/denied to access the GCP environment
+# Format: 'domain1.com,domain2.ca'
+export ALLOWED_DOMAINS="example.org,otherdomain.com"
+export DENY_DOMAINS="gmail.com,outlook.com,yahoo.com"
+
+# GR2.9 & GR 2.10
+export HAS_GUEST_USERS="false"
+
+# GR3.1
+export HAS_FEDERATED_USERS="true"
+
+# GR3.1
+# List of IPs allowed to access the GCP environment
+# Format: 10.0.7.44,192.168.0.16
+# NOTE: this can also be left blank if HAS_FEDERATED_USERS="true"
+export ALLOWED_IPS='10.0.7.44,192.168.0.16'
+
+# GR3.1
+# List of GCP Org and/or Workspace Customer IDs
+# run `gcloud organization list` to find yours
+# i.e. CUSTOMER_IDS='C03xxxx4x,Abc123,XYZ890'
+export CUSTOMER_IDS='C018hjxjn'
+
+# GR7.3
+# List of Acceptable Certifcate Authorities
+# Format: "Let's Encrypt,Verisign"
+export CA_ISSUERS="Let's Encrypt,Verisign"
+
+# GR11.4
+export ORG_ID="1234567890"
+
+#GR13.2 & GR13.3
+# breakglass user email
+export BREAKGLASS_USER_EMAIL="breakglass-account@example.com"
+
+
+
+###--------------------------------------
+# Core deployment settings
+#----------------------------------------
+# setting you likely will NOT need to change
+export REGION="northamerica-northeast1"
+export APP_PORT="8080"
+export BIN_AUTH_ENABLED="true"
+
+# you will very likely need to UPDATE these though
+export POLICY_REPO="cac_policies"
+export POLICY_PROJECT="cacv2-devproj"
+export BRANCH="main"
+export IMAGE_TAG="v2.0"
+export OPA_IMAGE="northamerica-northeast1-docker.pkg.dev/cacv2-devproj/opa/opa:0.70.0-googlesdk"
+export POLICY_VERSION="v2.0"
+export GCS_BUCKET="compliance-hub-1234567890"
+export SERVICE_ACCOUNT="cac-dev-9876543210-sa@cacv2-devproj.iam.gserviceaccount.com"

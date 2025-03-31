@@ -4,6 +4,7 @@
 set -o pipefail
 
 
+
 LOG_FILE="deployment-setup.log"
 DATE=$(date)
 
@@ -11,12 +12,11 @@ DATE=$(date)
 PROJECT_ID="$(gcloud config get-value project)"
 PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format="value(projectNumber)" 2>&1)
 
-PROJECT_ROLES=("iam.workloadIdentityUser" "run.developer" "iam.serviceAccountUser" "storage.admin" "cloudscheduler.admin" "run.invoker" "run.serviceAgent")
-ORG_ROLES=("securitycenter.adminViewer" "logging.viewer" "cloudasset.viewer")
+PROJECT_ROLES=("iam.workloadIdentityUser" "run.developer" "iam.serviceAccountUser" "storage.admin" "storage.buckets.create" "cloudscheduler.admin" "run.invoker" "run.serviceAgent")
+ORG_ROLES=("securitycenter.adminViewer" "logging.viewer" "cloudasset.viewer" "essentialcontacts.viewer" "certificatemanager.viewer" "accesscontextmanager.policyReader" "accesscontextmanager.gcpAccessReader")
 
-
-SERVICE_APIS=("run" "storagetransfer" "cloudasset" "binaryauthorization")
-PROJECT_APIS=("run" "cloudscheduler" "storage" "cloudasset" "storagetransfer" "securitycenter" "containerregistry" "binaryauthorization")
+SERVICE_APIS=("run" "storagetransfer" "cloudasset")
+PROJECT_APIS=("run" "cloudscheduler" "storage" "cloudasset" "storagetransfer" "securitycenter" "containerregistry" "admin" "cloudidentity" "cloudresourcemanager" "orgpolicy" "accesscontextmanager" "certificatemanager" "essentialcontacts" )
 
 
 function input_language {
@@ -108,7 +108,22 @@ service_identities_create
 
 echo "
 ################################################################################
-##             CaC Environment Preparation completed                    
+##             CaC Environment Preparation completed                          
+################################################################################
+## Service Account Information for SSC:
+##
+## Compliance Tool Service Account: 
+## $SERVICE_ACCOUNT
+##
+## CloudRun Robot Account: 
+## service-$PROJECT_NUMBER@serverless-robot-prod.iam.gserviceaccount.com
+##
+## Cloud Storage Robot Account:    
+## project-$PROJECT_NUMBER@storage-transfer-service.iam.gserviceaccount.com     
+##
+## Binary Authorization Service Account:
+## service-$PROJECT_NUMBER@gcp-sa-binaryauthorization.iam.gserviceaccount.com   
+##
 ################################################################################
 "
 echo "
@@ -117,19 +132,17 @@ echo "
 ################################################################################
 ## Service Account Information for SSC:
 ##
-## Compliance Tool Service Account Short Name: 
-## $SERVICE_ACCOUNT
-##
 ## Compliance Tool Service Account: 
-## $SERVICE_ACCOUNT@$PROJECT_ID.iam.gserviceaccount.com
+## $SERVICE_ACCOUNT
 ##
 ## CloudRun Robot Account: 
 ## service-$PROJECT_NUMBER@serverless-robot-prod.iam.gserviceaccount.com
 ##
-## Binary authorization Robot Account: 
-## service-$PROJECT_NUMBER@gcp-sa-binaryauthorization.iam.gserviceaccount.com
-##
 ## Cloud Storage Robot Account:    
-## project-$PROJECT_NUMBER@storage-transfer-service.iam.gserviceaccount.com              
+## project-$PROJECT_NUMBER@storage-transfer-service.iam.gserviceaccount.com     
+##
+## Binary Authorization Service Account:
+## service-$PROJECT_NUMBER@gcp-sa-binaryauthorization.iam.gserviceaccount.com   
+##
 ################################################################################
 " > $OUTPUT_FILE 2>&1

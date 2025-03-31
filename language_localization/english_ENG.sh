@@ -25,7 +25,7 @@ LANG_DEPLOYMENT_PROMPT="
 
 LANG_APIS="
 
-INFO: Enabling Required Project Services: Cloud Run, Cloud Storage, Binary auhtorization and Cloud Scheduler"
+INFO: Enabling Required Project Services: Cloud Run, Cloud Storage and Cloud Scheduler"
 
 LANG_SA_SETUP="
 
@@ -128,6 +128,8 @@ Exiting deployment"
 
 
 LANG_CAC_IMAGE="Enter the image to use: 
+>"
+LANG_CAC_OPA_IMAGE="Enter the OPA image to use: 
 >"
 CREATE_BUCKET="
 INFO: Creating guardrail compliance hub bucket...

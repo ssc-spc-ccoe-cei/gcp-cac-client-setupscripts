@@ -23,7 +23,7 @@ LANG_DEPLOYMENT_PROMPT="
 
 LANG_APIS="
 
-INFO: Activation des services de projet requis : Cloud Run, Binary authorization, Cloud Storage et Cloud Scheduler"
+INFO: Activation des services de projet requis : Cloud Run, Cloud Storage et Cloud Scheduler"
 
 LANG_SA_SETUP="
 INFO : Créer un compte de service CaC et ajouter des permissions"
@@ -110,6 +110,9 @@ POLICY_EXIT="Annulation du déploiement"
 
 CAC_IMAGE="
 Entrez l'image du conteneur à utiliser: 
+>"
+CAC_OPA_IMAGE="
+Entrez l' OPA image du conteneur à utiliser: 
 >"
 CREATE_BUCKET="
 INFO: CCréation d'un sceau-pivot pour la mise en conformité des mesures de protection du nuage GC ..."
