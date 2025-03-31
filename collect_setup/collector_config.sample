@@ -52,7 +52,7 @@ export ALLOWED_IPS='10.0.7.44,192.168.0.16'
 # List of GCP Org and/or Workspace Customer IDs
 # run `gcloud organization list` to find yours
 # i.e. CUSTOMER_IDS='C03xxxx4x,Abc123,XYZ890'
-export CUSTOMER_IDS='C018hjxjn'
+export CUSTOMER_IDS='C012habcde'
 
 # GR7.3
 # List of Acceptable Certifcate Authorities
