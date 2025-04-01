@@ -86,3 +86,6 @@ export OPA_IMAGE="northamerica-northeast1-docker.pkg.dev/cacv2-devproj/opa/opa:0
 export POLICY_VERSION="v2.0"
 export GCS_BUCKET="compliance-hub-1234567890"
 export SERVICE_ACCOUNT="cac-dev-9876543210-sa@cacv2-devproj.iam.gserviceaccount.com"
+
+# (central) destination bucket for storage transfer requires the gs:// prefix
+export SSC_BUCKET_NAME="gs://cac-solution-v2-data-hub"

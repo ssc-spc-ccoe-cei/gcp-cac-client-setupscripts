@@ -236,7 +236,7 @@ function cloudrun_service {
                     cd /mnt/policies
                     git checkout ${BRANCH}
                     ls -l /mnt/policies
-                    /usr/bin/opa run --server --addr :8181 --disable-telemetry /mnt/policies
+                    /usr/bin/opa run --server --addr :8181 --log-level debug --disable-telemetry /mnt/policies
                 env:
                 - name: GR11_04_ORG_ID
                   value: "${ORG_ID}"
