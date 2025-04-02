@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -o errexit
+# set -o errexit
 set -o pipefail
 #TEST COMMENT FOR MANINDER
 ## declare an array of policies
@@ -167,7 +167,7 @@ function cloudrun_service {
         apiVersion: serving.knative.dev/v1
         kind: Service
         metadata:
-          name: cac-solution-dev
+          name: ${CLOUD_RUN}
           labels:
             cloud.googleapis.com/location: northamerica-northeast1
           annotations:
@@ -187,7 +187,7 @@ function cloudrun_service {
               serviceAccountName: ${SERVICE_ACCOUNT}
               containers:
               - name: cac-python-1
-                image: ${REGION}-docker.pkg.dev/${PROJECT_ID}/cac-python/cac-app:${IMAGE_TAG}
+                image: ${REGION}-docker.pkg.dev/${BUILD_PROJECT_ID}/cac-python/cac-app:${IMAGE_TAG}
                 imagePullPolicy: Always
                 ports:
                 - name: http1
