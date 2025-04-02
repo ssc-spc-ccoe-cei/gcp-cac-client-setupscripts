@@ -1,0 +1,89 @@
+###--------------------------------------
+# Python app.py deployment settings
+#----------------------------------------
+### Azure Tenant Domain (if any)
+export TENANT_DOMAIN="163cspmdev.onmicrosoft.com"
+### GCP Organization Information
+export PROJECT_ID="cac-test-julian-v2"
+# Organization Name
+export ORG_NAME="163gccspm.gccspm.gc.ca"
+# GC Cloud Usage Profile number
+export GC_PROFILE="3"
+export GCP_PROJECT="cac-goat-v2"
+
+
+###--------------------------------------
+# Python app.py deployment settings
+#----------------------------------------
+# GR1.3
+export ORG_ADMIN_GROUP_EMAIL="administrators-163gccsmp@163gccspm.gccspm.gc.ca"
+
+# GR5.1
+# Tag Key used to identify security classification of GCP resources
+# example: a GCS bucket can be identified as containing Protected "A" data by tagging it
+# DATA_CLASSIFICATION: Protected A
+export SECURITY_CATEGORY_KEY="DATA_CLASSIFICATION"
+
+# GR1.6 & GR2.1
+# List of Privileged Users and their regular account names
+# Format: '(user:admin1@example.com,user:admin2@example.com,user:admin3@example.com)'
+export PRIVILEGED_USERS_LIST="user:admin-breakglass@163gccspm.gccspm.gc.ca,user:admin-cspm@163gccspm.gccspm.gc.ca,user:admin-maninder@163gccspm.gccspm.gc.ca"
+export REGULAR_USERS_LIST="user:julian.patterson@ssc-spc.gc.ca"
+
+# GR2.8
+# List of Domains that are allowed/denied to access the GCP environment
+# Format: 'domain1.com,domain2.ca'
+export ALLOWED_DOMAINS="163gccspm.gccspm.gc.ca"
+export DENY_DOMAINS="gmail.com,outlook.com,yahoo.com"
+
+# GR2.9 & GR 2.10
+export HAS_GUEST_USERS="false"
+
+# GR3.1
+export HAS_FEDERATED_USERS="false"
+
+# GR3.1
+# List of IPs allowed to access the GCP environment
+# Format: 10.0.7.44,192.168.0.16
+# NOTE: this can also be left blank if HAS_FEDERATED_USERS="true"
+export ALLOWED_IPS='10.0.0.0/8,192.168.1.0/24,70.29.2.103'
+
+# GR3.1
+# List of GCP Org and/or Workspace Customer IDs
+# run `gcloud organization list` to find yours
+# i.e. CUSTOMER_IDS='C03xxxx4x,Abc123,XYZ890'
+export CUSTOMER_IDS='C01mb62u4,C018hjxjn'
+
+# GR7.3
+# List of Acceptable Certifcate Authorities
+# Format: "Let's Encrypt,Verisign"
+export CA_ISSUERS="Let's Encrypt,Verisign"
+
+# GR11.4
+export ORG_ID="402743803722"
+
+#GR13.2 & GR13.3
+# breakglass user email
+export BREAKGLASS_USER_EMAIL="breakglass@ssc.gc.ca"
+
+
+
+###--------------------------------------
+# Core deployment settings
+#----------------------------------------
+# setting you likely will NOT need to change
+export REGION="northamerica-northeast1"
+export APP_PORT="8080"
+export BIN_AUTH_ENABLED="true"
+
+# you will very likely need to UPDATE these though
+export POLICY_REPO="https://source.developers.google.com/p/gcdm163b-goat/r/github_ssc-spc-ccoe-cei_gcp-cac-policies"
+export POLICY_PROJECT="gcdm163b-goat"
+export BRANCH="cac-v2"
+export IMAGE_TAG="0.70.0"
+export OPA_IMAGE="northamerica-northeast1-docker.pkg.dev/gcdm163b-goat/opa/opa:0.70.0-googlesdk"
+export BUILD_PROJECT_ID="gcdm163b-goat"
+export POLICY_VERSION="2.1"
+export GCS_BUCKET="compliance-hub-624375218863"
+export SERVICE_ACCOUNT="cac-solution-402743803722-sa"
+export SSC_BUCKET_NAME="gs://cac-solution-data-hub-dev"

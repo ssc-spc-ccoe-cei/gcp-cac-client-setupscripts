@@ -1,0 +1,77 @@
+Wed Apr  2 07:34:15 PM UTC 2025
+
+################################################################################
+##           Starting CaC Tool Deployment                                     ##
+################################################################################
+
+
+description: CaC Solution Service Account
+email: cac-solution-402743803722-sa@cac-test-julian-v2.iam.gserviceaccount.com
+etag: MDEwMjE5MjA=
+name: projects/cac-test-julian-v2/serviceAccounts/cac-solution-402743803722-sa@cac-test-julian-v2.iam.gserviceaccount.com
+oauth2ClientId: '105437181543810189812'
+projectId: cac-test-julian-v2
+uniqueId: '105437181543810189812'
+INFO: Binding Service account to principal user...
+Updated IAM policy for serviceAccount [cac-solution-402743803722-sa@cac-test-julian-v2.iam.gserviceaccount.com].
+bindings:
+- members:
+  - user:julian.patterson@163cspmdev.onmicrosoft.com
+  role: roles/iam.serviceAccountTokenCreator
+etag: BwYx0L2XfAk=
+version: 1
+gs://compliance-hub-410010188378/
+INFO: Setting storage class and versioning configurations...
+Setting default storage class to "STANDARD" for bucket gs://compliance-hub-410010188378
+WARNING: This command is using service account impersonation. All API calls will be executed as [cac-solution-402743803722-sa@cac-test-julian-v2.iam.gserviceaccount.com].
+Enabling versioning for gs://compliance-hub-410010188378/...
+WARNING: This command is using service account impersonation. All API calls will be executed as [cac-solution-402743803722-sa@cac-test-julian-v2.iam.gserviceaccount.com].
+WARNING: This command is using service account impersonation. All API calls will be executed as [cac-solution-402743803722-sa@cac-test-julian-v2.iam.gserviceaccount.com].
+No changes made to gs://compliance-hub-410010188378/
+WARNING: This command is using service account impersonation. All API calls will be executed as [cac-solution-402743803722-sa@cac-test-julian-v2.iam.gserviceaccount.com].
+No changes made to gs://compliance-hub-410010188378/
+WARNING: This command is using service account impersonation. All API calls will be executed as [cac-solution-402743803722-sa@cac-test-julian-v2.iam.gserviceaccount.com].
+No changes made to gs://compliance-hub-410010188378/
+WARNING: This command is using service account impersonation. All API calls will be executed as [cac-solution-402743803722-sa@cac-test-julian-v2.iam.gserviceaccount.com].
+No changes made to gs://compliance-hub-410010188378/
+INFO: Creating Cloud Run service in the background...
+WARNING: This command is using service account impersonation. All API calls will be executed as [cac-solution-402743803722-sa@cac-test-julian-v2.iam.gserviceaccount.com].
+WARNING: This command is using service account impersonation. All API calls will be executed as [cac-solution-402743803722-sa@cac-test-julian-v2.iam.gserviceaccount.com].
+WARNING: This command is using service account impersonation. All API calls will be executed as [cac-solution-402743803722-sa@cac-test-julian-v2.iam.gserviceaccount.com].
+WARNING: This command is using service account impersonation. All API calls will be executed as [cac-solution-402743803722-sa@cac-test-julian-v2.iam.gserviceaccount.com].
+Applying new configuration to Cloud Run service [[1mcompliance-analysis[m] in project [[1mcac-test-julian-v2[m] region [[1mnorthamerica-northeast1[m]
+Deploying new service...
+Creating Revision........................................................................................................................................................................................................................................................................................................................................................................................................done
+Routing traffic......done
+Done.
+New configuration has been applied to service [[1mcompliance-analysis[m].
+URL: [1mhttps://compliance-analysis-410010188378.northamerica-northeast1.run.app[m
+WARNING: This command is using service account impersonation. All API calls will be executed as [cac-solution-402743803722-sa@cac-test-julian-v2.iam.gserviceaccount.com].
+WARNING: This command is using service account impersonation. All API calls will be executed as [cac-solution-402743803722-sa@cac-test-julian-v2.iam.gserviceaccount.com].
+WARNING: This command is using service account impersonation. All API calls will be executed as [cac-solution-402743803722-sa@cac-test-julian-v2.iam.gserviceaccount.com].
+WARNING: This command is using service account impersonation. All API calls will be executed as [cac-solution-402743803722-sa@cac-test-julian-v2.iam.gserviceaccount.com].
+Updating...
+Done.
+Service [[1mcompliance-analysis[m] has been updated.
+WARNING: This command is using service account impersonation. All API calls will be executed as [cac-solution-402743803722-sa@cac-test-julian-v2.iam.gserviceaccount.com].
+WARNING: This command is using service account impersonation. All API calls will be executed as [cac-solution-402743803722-sa@cac-test-julian-v2.iam.gserviceaccount.com].
+attemptDeadline: 1800s
+description: Compliance analysis automation
+httpTarget:
+  headers:
+    User-Agent: Google-Cloud-Scheduler
+  httpMethod: GET
+  oidcToken:
+    audience: https://compliance-analysis-fztn3brnpq-nn.a.run.app
+    serviceAccountEmail: cac-solution-402743803722-sa@cac-test-julian-v2.iam.gserviceaccount.com
+  uri: https://compliance-analysis-fztn3brnpq-nn.a.run.app/
+name: projects/cac-test-julian-v2/locations/northamerica-northeast1/jobs/compliance-analysis-automation-410010188378
+retryConfig:
+  maxBackoffDuration: 3600s
+  maxDoublings: 16
+  maxRetryDuration: 0s
+  minBackoffDuration: 5s
+schedule: 0 0 * * *
+state: ENABLED
+timeZone: UTC
+userUpdateTime: '2025-04-02T19:35:38Z'
