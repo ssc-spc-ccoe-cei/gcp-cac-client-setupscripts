@@ -1,8 +1,9 @@
 #!/bin/bash
 
-# set -o errexit
+
+#set -o errexit
 set -o pipefail
-#TEST COMMENT FOR MANINDER
+
 ## declare an array of policies
 declare -a ROLES=("roles/iam.workloadIdentityUser" "roles/run.developer" "roles/iam.serviceAccountUser" "roles/storage.admin" "roles/cloudscheduler.admin" "roles/run.invoker" "roles/run.serviceAgent" "roles/cloudasset.viewer" "roles/logging.viewer" "roles/securitycenter.adminViewer")
 ROLE_COUNT=$(echo "${ROLES[@]}" | wc -w)
@@ -236,7 +237,7 @@ function cloudrun_service {
                     cd /mnt/policies
                     git checkout ${BRANCH}
                     ls -l /mnt/policies
-                    /usr/bin/opa run --server --addr :8181 --disable-telemetry /mnt/policies
+                    /usr/bin/opa run --server --addr :8181 --log-level debug --disable-telemetry /mnt/policies
                 env:
                 - name: GR11_04_ORG_ID
                   value: "${ORG_ID}"
@@ -265,7 +266,7 @@ function cloudrun_service {
                 - name: GR03_01_CUSTOMER_IDS
                   value: "${CUSTOMER_IDS}"
                 - name: GR03_01_ALLOWED_CIDRS
-                  value: "${ALLOWED_CIDRS}"
+                  value: "${ALLOWED_IPS}"
                 - name: GR05_01_SECURITY_CATEGORY_KEY
                   value: "${SECURITY_CATEGORY_KEY}"
                 - name: GR07_03_ALLOWED_CA_ISSUERS

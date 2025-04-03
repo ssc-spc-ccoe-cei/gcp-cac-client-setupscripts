@@ -52,7 +52,7 @@ export ALLOWED_IPS='10.0.7.44,192.168.0.16'
 # List of GCP Org and/or Workspace Customer IDs
 # run `gcloud organization list` to find yours
 # i.e. CUSTOMER_IDS='C03xxxx4x,Abc123,XYZ890'
-export CUSTOMER_IDS='C018hjxjn'
+export CUSTOMER_IDS='C012habcde'
 
 # GR7.3
 # List of Acceptable Certifcate Authorities
@@ -80,8 +80,12 @@ export BIN_AUTH_ENABLED="true"
 export POLICY_REPO="cac_policies"
 export POLICY_PROJECT="cacv2-devproj"
 export BRANCH="main"
+export BUILD_PROJECT_ID="cacv2-imagebuild-proj" 
 export IMAGE_TAG="v2.0"
 export OPA_IMAGE="northamerica-northeast1-docker.pkg.dev/cacv2-devproj/opa/opa:0.70.0-googlesdk"
 export POLICY_VERSION="v2.0"
 export GCS_BUCKET="compliance-hub-1234567890"
 export SERVICE_ACCOUNT="cac-dev-9876543210-sa@cacv2-devproj.iam.gserviceaccount.com"
+
+# (central) destination bucket for storage transfer requires the gs:// prefix
+export SSC_BUCKET_NAME="gs://cac-solution-v2-data-hub"
