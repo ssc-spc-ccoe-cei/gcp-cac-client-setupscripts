@@ -1,0 +1,133 @@
+        apiVersion: serving.knative.dev/v1
+        kind: Service
+        metadata:
+          name: compliance-analysis
+          labels:
+            cloud.googleapis.com/location: northamerica-northeast1
+          annotations:
+        spec:
+          template:
+            metadata:
+              labels:
+                run.googleapis.com/startupProbeType: Default
+              annotations:
+                autoscaling.knative.dev/maxScale: '1'
+                run.googleapis.com/execution-environment: gen2
+                run.googleapis.com/startup-cpu-boost: 'true'
+                run.googleapis.com/container-dependencies: '{"cac-python-1":["opa-1"]}'
+            spec:
+              containerConcurrency: 80
+              timeoutSeconds: 300
+              serviceAccountName: cac-solution-402743803722-sa@cac-test-julian-v2.iam.gserviceaccount.com
+              containers:
+              - name: cac-python-1
+                image: northamerica-northeast1-docker.pkg.dev/gcdm163b-goat/cac-python/cac-app:0.70.0
+                imagePullPolicy: Always
+                ports:
+                - name: http1
+                  containerPort: 8080
+                env:
+                - name: APP_PORT
+                  value: "8080"
+                - name: LOG_LEVEL
+                  value: "INFO"
+                - name: GCP_PROJECT
+                  value: "cac-test-julian-v2"
+                - name: ORG_NAME
+                  value: "163gccspm.gccspm.gc.ca"
+                - name: ORG_ID
+                  value: "402743803722"
+                - name: GCS_BUCKET
+                  value: "compliance-hub-624375218863"
+                - name: GC_PROFILE
+                  value: "3"
+                - name: TENANT_DOMAIN
+                  value: "163cspmdev.onmicrosoft.com"
+                - name: POLICY_VERSION
+                  value: "2.1"
+                - name: APP_VERSION
+                  value: "0.70.0"
+                - name: CUSTOMER_ID
+                  value: ""
+                - name: ORG_ADMIN_GROUP_EMAIL
+                  value: "administrators-163gccsmp@163gccspm.gccspm.gc.ca"
+                - name: BREAKGLASS_USER_EMAIL
+                  value: "breakglass@ssc.gc.ca"
+                resources:
+                  limits:
+                    cpu: 4000m
+                    memory: 4Gi
+              - name: opa-1
+                image: "northamerica-northeast1-docker.pkg.dev/gcdm163b-goat/opa/opa:0.70.0-googlesdk"
+                imagePullPolicy: Always
+                command: ['/bin/bash']
+                args: 
+                  - -c
+                  - |
+                    rm -Rf /mnt/policies/*
+                    git config --global credential.helper gcloud.sh
+                    git clone --quiet https://source.developers.google.com/p/gcdm163b-goat/r/github_ssc-spc-ccoe-cei_gcp-cac-policies /mnt/policies
+                    cd /mnt/policies
+                    git checkout cac-v2
+                    ls -l /mnt/policies
+                    /usr/bin/opa run --server --addr :8181 --disable-telemetry /mnt/policies
+                env:
+                - name: GR11_04_ORG_ID
+                  value: "402743803722"
+                - name: GR01_03_ORG_ADMIN_GROUP_EMAIL
+                  value: "administrators-163gccsmp@163gccspm.gccspm.gc.ca"
+                - name: GR02_01_ORG_ADMIN_GROUP_EMAIL
+                  value: "administrators-163gccsmp@163gccspm.gccspm.gc.ca"
+                - name: GR01_06_PRIVILEGED_USERS
+                  value: "user:admin-breakglass@163gccspm.gccspm.gc.ca,user:admin-cspm@163gccspm.gccspm.gc.ca,user:admin-maninder@163gccspm.gccspm.gc.ca"
+                - name: GR01_06_REGULAR_USERS
+                  value: "user:julian.patterson@ssc-spc.gc.ca"
+                - name: GR02_01_PRIVILEGED_USERS
+                  value: "user:admin-breakglass@163gccspm.gccspm.gc.ca,user:admin-cspm@163gccspm.gccspm.gc.ca,user:admin-maninder@163gccspm.gccspm.gc.ca"
+                - name: GR02_01_REGULAR_USERS
+                  value: "user:julian.patterson@ssc-spc.gc.ca"
+                - name: GR02_08_ALLOWED_DOMAINS
+                  value: "163gccspm.gccspm.gc.ca"
+                - name: GR02_08_DENY_DOMAINS
+                  value: "gmail.com,outlook.com,yahoo.com"
+                - name: GR02_09_HAS_GUEST_USERS
+                  value: "false"
+                - name: GR02_10_HAS_GUEST_USERS
+                  value: "false"
+                - name: GR03_01_HAS_FEDERATED_USERS
+                  value: "false"
+                - name: GR03_01_CUSTOMER_IDS
+                  value: "C01mb62u4,C018hjxjn"
+                - name: GR03_01_ALLOWED_CIDRS
+                  value: ""
+                - name: GR05_01_SECURITY_CATEGORY_KEY
+                  value: "DATA_CLASSIFICATION"
+                - name: GR07_03_ALLOWED_CA_ISSUERS
+                  value: "Let's Encrypt,Verisign"
+                - name: GR13_02_BREAKGLASS_USER_EMAIL
+                  value: "breakglass@ssc.gc.ca"
+                - name: GR13_03_BREAKGLASS_USER_EMAIL
+                  value: "breakglass@ssc.gc.ca"
+                resources:
+                  limits:
+                    cpu: 1000m
+                    memory: 2Gi
+                volumeMounts:
+                - name: policies
+                  mountPath: /mnt/policies
+                startupProbe:
+                  initialDelaySeconds: 30
+                  timeoutSeconds: 10
+                  periodSeconds: 10
+                  failureThreshold: 5
+                  httpGet:
+                    path: /
+                    port: 8181
+              volumes:
+              - name: policies
+                emptyDir:
+                  medium: Memory
+                  sizeLimit: 512Mi
+          traffic:
+          - percent: 100
+            latestRevision: true
