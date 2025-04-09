@@ -204,7 +204,7 @@ function cloudrun_service {
                 - name: ORG_ID
                   value: "${ORG_ID}"
                 - name: GCS_BUCKET
-                  value: "${GCS_BUCKET}"
+                  value: "${BUCKET_NAME}"
                 - name: GC_PROFILE
                   value: "${GC_PROFILE}"
                 - name: TENANT_DOMAIN
