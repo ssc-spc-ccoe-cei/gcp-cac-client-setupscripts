@@ -76,7 +76,9 @@ export REGION="northamerica-northeast1"
 export APP_PORT="8080"
 export BIN_AUTH_ENABLED="true"
 
-# you will very likely need to UPDATE these though
+###--------------------------------------
+# SSC Team will provide following information
+#----------------------------------------
 export POLICY_REPO="cac_policies"
 export POLICY_PROJECT="cacv2-devproj"
 export BRANCH="main"
