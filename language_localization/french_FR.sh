@@ -78,7 +78,6 @@ INFO: L'outil CaC sera déployé en utilisant le compte de service"
 
 SA_ERROR="
 ERREUR : Compte de service non trouvé. Veuillez vérifier et réessayer"
-" 
 
 SA_POLICY_ERROR="
 AVERTISSEMENT: Les permissions du compte de service sont surprovisionnées
