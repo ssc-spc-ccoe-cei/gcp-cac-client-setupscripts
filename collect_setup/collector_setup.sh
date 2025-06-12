@@ -59,6 +59,10 @@ function config_init {
   REQUIRED_VARIABLES=("PROJECT_ID" "SERVICE_ACCOUNT" "ORG_NAME" "GC_PROFILE" "SECURITY_CATEGORY_KEY" "PRIVILEGED_USERS_LIST" "REGULAR_USERS_LIST" "ALLOWED_DOMAINS" "DENY_DOMAINS" "HAS_GUEST_USERS" "HAS_FEDERATED_USERS" "ALLOWED_IPS" "CUSTOMER_IDS" "CA_ISSUERS" "ORG_ADMIN_GROUP_EMAIL" "BREAKGLASS_USER_EMAIL" "SSC_BUCKET_NAME" "POLICY_REPO" "OPA_IMAGE" "REGION")
 
   for setting in "${REQUIRED_VARIABLES[@]}"; do
+    if [[ "$setting" == "ALLOWED_IPS" && $HAS_FEDERATED_USERS == "true" ]]; then
+      continue
+    fi
+
     if [ -z "${!setting}" ]; then
       echo "ERROR: $setting is not set. Please set the variable in the collector_config file"
     fi
@@ -81,7 +85,7 @@ function config_init {
 ############################################
 
 function service_account {
-  gcloud iam service-accounts describe ${SERVICE_ACCOUNT} >>$LOG_FILE 2>&1
+  gcloud iam service-accounts describe ${SERVICE_ACCOUNT} 2> >(tee -a "$LOG_FILE" | grep -v -i "warning" >&2)
   ret=$?
   if [ $ret -ne 0 ]; then
     tput setaf 1
@@ -93,42 +97,42 @@ function service_account {
   fi
   # Binding the SA to principal account
   echo $BINDING_PROMPT
-  echo $BINDING_PROMPT >>$LOG_FILE 2>&1
+  echo $BINDING_PROMPT 2> >(tee -a "$LOG_FILE" | grep -v -i "warning" >&2)
   gcloud iam service-accounts add-iam-policy-binding $SERVICE_ACCOUNT \
     --member="user:$(gcloud config list account --format "value(core.account)")" \
-    --role="roles/iam.serviceAccountTokenCreator" >>$LOG_FILE 2>&1
+    --role="roles/iam.serviceAccountTokenCreator" 2> >(tee -a "$LOG_FILE" | grep -v -i "warning" >&2)1
 
 }
 
 function storage_bucket {
   # Create the bucket
-  gsutil ls -b gs://$BUCKET_NAME >>$LOG_FILE 2>&1
+  gsutil ls -b gs://$BUCKET_NAME 2> >(tee -a "$LOG_FILE" | grep -v -i "warning" >&2)
   ret=$?
   if [ $ret -ne 0 ]; then
     clean_up
     echo $CREATE_BUCKET
-    echo $CREATE_BUCKET >>$LOG_FILE 2>&1
-    gsutil --impersonate-service-account="$SERVICE_ACCOUNT" mb -l $REGION gs://$BUCKET_NAME >>$LOG_FILE 2>&1
+    echo $CREATE_BUCKET 2> >(tee -a "$LOG_FILE" | grep -v -i "warning" >&2)
+    gsutil --impersonate-service-account="$SERVICE_ACCOUNT" mb -l $REGION gs://$BUCKET_NAME 2> >(tee -a "$LOG_FILE" | grep -v -i "warning" >&2)
   fi
   # Set the default storage class for the bucket
   echo $CONFIG_BUCKET
-  echo $CONFIG_BUCKET >>$LOG_FILE 2>&1
+  echo $CONFIG_BUCKET 2> >(tee -a "$LOG_FILE" | grep -v -i "warning" >&2)
 
-  gsutil --impersonate-service-account="$SERVICE_ACCOUNT" defstorageclass set STANDARD gs://$BUCKET_NAME >>$LOG_FILE 2>&1
+  gsutil --impersonate-service-account="$SERVICE_ACCOUNT" defstorageclass set STANDARD gs://$BUCKET_NAME 2> >(tee -a "$LOG_FILE" | grep -v -i "warning" >&2)
 
   # Set versioning for the bucket
-  gsutil --impersonate-service-account="$SERVICE_ACCOUNT" versioning set on gs://$BUCKET_NAME >>$LOG_FILE 2>&1
+  gsutil --impersonate-service-account="$SERVICE_ACCOUNT" versioning set on gs://$BUCKET_NAME 2> >(tee -a "$LOG_FILE" | grep -v -i "warning" >&2)
 
   # Create the directories
   FOLDER_COUNT=$(gsutil ls gs://$BUCKET_NAME | wc -l | tr -d '[:space:]')
 
   if [ $FOLDER_COUNT -lt 13 ]; then
     for i in {1..13}; do
-      echo $CREATE_FOLDERS >>$LOG_FILE 2>&1
+      echo $CREATE_FOLDERS 2> >(tee -a "$LOG_FILE" | grep -v -i "warning" >&2)
       echo $CREATE_FOLDERS
       mkdir guardrail-$(printf "%02d" $i)
       echo "Please use this space to upload compliance related files" >guardrail-$(printf "%02d" $i)/instructions.txt
-      gsutil --impersonate-service-account="$SERVICE_ACCOUNT" cp -r guardrail-$(printf "%02d" $i) gs://$BUCKET_NAME >>$LOG_FILE 2>&1
+      gsutil --impersonate-service-account="$SERVICE_ACCOUNT" cp -r guardrail-$(printf "%02d" $i) gs://$BUCKET_NAME 2> >(tee -a "$LOG_FILE" | grep -v -i "warning" >&2)
       rm -rf guardrail-$(printf "%02d" $i)
     done
   fi
@@ -138,12 +142,12 @@ function storage_bucket {
   for role in ${API_ROLES[@]}; do
     gsutil --impersonate-service-account="$SERVICE_ACCOUNT" iam ch \
       serviceAccount:project-$PROJECT_NUMBER@storage-transfer-service.iam.gserviceaccount.com:${role} \
-      gs://${BUCKET_NAME} >>$LOG_FILE 2>&1
+      gs://${BUCKET_NAME} 2> >(tee -a "$LOG_FILE" | grep -v -i "warning" >&2)
   done
 
   gsutil --impersonate-service-account="$SERVICE_ACCOUNT" iam ch \
     serviceAccount:service-$PROJECT_NUMBER@gcp-sa-cloudasset.iam.gserviceaccount.com:objectAdmin \
-    gs://${BUCKET_NAME} >>$LOG_FILE 2>&1
+    gs://${BUCKET_NAME} 2> >(tee -a "$LOG_FILE" | grep -v -i "warning" >&2)
 
   RUN_HOUR="02:00:00-04:00"
   ORDINAL=$((($RANDOM % 10 + 1)))
@@ -162,7 +166,7 @@ function storage_bucket {
 function cloudrun_service {
 
   # Run the Cloud Run job using the specified image and publishing the logs
-  echo $CREATE_CRUN >>$LOG_FILE 2>&1
+  echo $CREATE_CRUN 2> >(tee -a "$LOG_FILE" | grep -v -i "warning" >&2)
   cat <<EOF >cloudrun.yaml
         apiVersion: serving.knative.dev/v1
         kind: Service
@@ -303,14 +307,14 @@ EOF
 
   gcloud --impersonate-service-account=${SERVICE_ACCOUNT} \
     run services replace cloudrun.yaml \
-    >>$LOG_FILE 2>&1
+    2> >(tee -a "$LOG_FILE" | grep -v -i "warning" >&2)
   
   if [ ${BIN_AUTH_ENABLED:-"false"} = "true" ]; then
     gcloud --impersonate-service-account=${SERVICE_ACCOUNT} \
       run services update ${CLOUD_RUN} \
       --binary-authorization=default \
       --region ${REGION} \
-      >>$LOG_FILE 2>&1
+      2> >(tee -a "$LOG_FILE" | grep -v -i "warning" >&2)
   fi
   # Get the URL of the Cloud Run service
 
@@ -328,15 +332,15 @@ EOF
     --description "Compliance analysis automation" \
     --uri "$CSERVICE_URL" \
     --http-method=GET \
-    --attempt-deadline=30m >>$LOG_FILE 2>&1
+    --attempt-deadline=30m 2> >(tee -a "$LOG_FILE" | grep -v -i "warning" >&2)
 }
 
 ## Setup Logging
 
-echo "$DATE" >$LOG_FILE 2>&1
+echo "$DATE" 2> >(tee -a "$LOG_FILE" | grep -v -i "warning" >&2)
 input_language
 echo "$LANG_DEPLOYMENT_PROMPT"
-echo "$LANG_DEPLOYMENT_PROMPT" >>$LOG_FILE
+echo "$LANG_DEPLOYMENT_PROMPT" 2> >(tee -a "$LOG_FILE" | grep -v -i "warning" >&2)
 
 config_init
 
