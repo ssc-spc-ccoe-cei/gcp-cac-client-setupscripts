@@ -159,7 +159,8 @@ function storage_bucket {
     gcloud transfer jobs create gs://${BUCKET_NAME}/ ${SSC_BUCKET_NAME}/${ORG_NAME}/ \
       --name "nightly_compliance_transfer_${ORDINAL}" \
       --include-modified-after-relative=1d \
-      --schedule-starts=$(date -d "+1day" -u +"%Y-%m-%dT${RUN_HOUR}")
+      --schedule-starts=$(date -d "+1day" -u +"%Y-%m-%dT${RUN_HOUR}") \
+      --schedule-repeats-every=p1d
   fi
 }
 
