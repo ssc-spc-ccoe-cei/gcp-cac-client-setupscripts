@@ -188,7 +188,7 @@ function cloudrun_service {
                 run.googleapis.com/container-dependencies: '{"cac-python-1":["opa-1"]}'
             spec:
               containerConcurrency: 80
-              timeoutSeconds: 300
+              timeoutSeconds: 3600
               serviceAccountName: ${SERVICE_ACCOUNT}
               containers:
               - name: cac-python-1
