@@ -1,3 +1,5 @@
+# Script Version: 1.0.1
+
 #!/bin/bash
 
 #set -o errexit
@@ -195,7 +197,7 @@ function cloudrun_service {
                 image: ${REGION}-docker.pkg.dev/${BUILD_PROJECT_ID}/cac-python/cac-app:${IMAGE_TAG}
                 imagePullPolicy: Always
                 ports:
-                - name: http1
+                - name: h2c
                   containerPort: ${APP_PORT}
                 env:
                 - name: APP_PORT
@@ -227,7 +229,7 @@ function cloudrun_service {
                 resources:
                   limits:
                     cpu: 4000m
-                    memory: 4Gi
+                    memory: 8Gi
               - name: opa-1
                 image: "${OPA_IMAGE}"
                 imagePullPolicy: Always
@@ -241,7 +243,7 @@ function cloudrun_service {
                     cd /mnt/policies
                     git checkout ${BRANCH}
                     ls -l /mnt/policies
-                    /usr/bin/opa run --server --addr :8181 --log-level debug --disable-telemetry /mnt/policies
+                    /usr/bin/opa run --server --h2c --addr :8181 --log-level debug --disable-telemetry /mnt/policies
                 env:
                 - name: GR11_04_ORG_ID
                   value: "${ORG_ID}"
