@@ -1,4 +1,4 @@
-# Script Version: 1.0.1
+# Script Version: 1.0.2
 
 #!/bin/bash
 
@@ -229,7 +229,7 @@ function cloudrun_service {
                 resources:
                   limits:
                     cpu: 4000m
-                    memory: 8Gi
+                    memory: 10Gi
               - name: opa-1
                 image: "${OPA_IMAGE}"
                 imagePullPolicy: Always
@@ -243,7 +243,7 @@ function cloudrun_service {
                     cd /mnt/policies
                     git checkout ${BRANCH}
                     ls -l /mnt/policies
-                    /usr/bin/opa run --server --h2c --addr :8181 --log-level debug --disable-telemetry /mnt/policies
+                    /usr/bin/opa run --server --h2c --addr :8181 --log-level debug --disable-telemetry --set server.decoding.max_length=536870912 --set server.decoding.gzip.max_length=1073741824 /mnt/policies
                 env:
                 - name: GR11_04_ORG_ID
                   value: "${ORG_ID}"
@@ -283,15 +283,15 @@ function cloudrun_service {
                   value: "${BREAKGLASS_USER_EMAIL}"
                 resources:
                   limits:
-                    cpu: 1000m
-                    memory: 2Gi
+                    cpu: 4000m
+                    memory: 8Gi
                 volumeMounts:
                 - name: policies
                   mountPath: /mnt/policies
                 startupProbe:
                   initialDelaySeconds: 30
-                  timeoutSeconds: 10
-                  periodSeconds: 10
+                  timeoutSeconds: 120
+                  periodSeconds: 240
                   failureThreshold: 5
                   httpGet:
                     path: /
