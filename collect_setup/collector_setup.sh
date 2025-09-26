@@ -199,7 +199,7 @@ function storage_bucket {
   RUN_HOUR="02:00:00-04:00"
   ORDINAL=$((($RANDOM % 10 + 1)))
 
-  Set up cloud storage transfer job
+  # Set up cloud storage transfer job
   gcloud transfer jobs list --job-statuses=enabled | grep nightly_compliance_transfer >/dev/null 2>&1
   ret=$?
   if [ $ret -ne 0 ]; then
