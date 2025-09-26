@@ -1,0 +1,10 @@
+title: "CaC Run Role"
+description: "Custom role for CaC solution Cloud Run operations"
+stage: "GA"
+includedPermissions:
+  - run.services.create
+  - run.services.get
+  - run.services.list
+  - run.services.update
+  - run.revisions.get
+  - run.revisions.list

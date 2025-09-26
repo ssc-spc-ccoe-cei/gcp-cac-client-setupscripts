@@ -6,7 +6,20 @@
 set -o pipefail
 
 ## declare an array of policies
-declare -a ROLES=("roles/iam.workloadIdentityUser" "roles/run.developer" "roles/iam.serviceAccountUser" "roles/storage.admin" "roles/cloudscheduler.admin" "roles/run.invoker" "roles/run.serviceAgent" "roles/cloudasset.viewer" "roles/logging.viewer" "roles/securitycenter.adminViewer")
+declare -a ROLES=(
+    "roles/iam.workloadIdentityUser" 
+    "roles/iam.serviceAccountUser"  
+    "roles/run.invoker" 
+    "roles/run.serviceAgent" 
+    "roles/cloudasset.viewer" 
+    "roles/logging.viewer" 
+    "roles/securitycenter.adminViewer"
+    "projects/$PROJECT_ID/roles/cac_storage_role" #storage.admin
+    "projects/$PROJECT_ID/roles/cac_scheduler_role"  #cloudscheduler.admin
+    "projects/$PROJECT_ID/roles/cac_run_role" #run.developer
+)
+
+
 ROLE_COUNT=$(echo "${ROLES[@]}" | wc -w)
 # Declare cloud run service name
 CLOUD_RUN="compliance-analysis"
@@ -15,6 +28,7 @@ LOG_FILE="deployment-setup.log"
 SCHEDULE="0 0 * * *"
 LOG_LEVEL="INFO"
 DATE=$(date)
+
 function clean_up {
   # Find and delete all directories starting with "guardrail" in the current working directory
   for dir in $(find . -type d -name "guardrail-*"); do
@@ -23,6 +37,7 @@ function clean_up {
     echo "Deleted $dir"
   done
 }
+
 function input_language {
   ## Allows user to set preferred install language.
   read -p " 
@@ -58,7 +73,32 @@ function config_init {
 
   ## Gathers required information for installation
   printf "$LANG_SETUP_PROMPT"
+<<<<<<< HEAD
   REQUIRED_VARIABLES=("PROJECT_ID" "SERVICE_ACCOUNT" "ORG_NAME" "GC_PROFILE" "SECURITY_CATEGORY_KEY" "PRIVILEGED_USERS_LIST" "REGULAR_USERS_LIST" "ALLOWED_DOMAINS" "DENY_DOMAINS" "HAS_GUEST_USERS" "HAS_FEDERATED_USERS" "ALLOWED_IPS" "CUSTOMER_IDS" "CA_ISSUERS" "ORG_ADMIN_GROUP_EMAIL" "BREAKGLASS_USER_EMAILS" "SSC_BUCKET_NAME" "POLICY_REPO" "OPA_IMAGE" "REGION")
+=======
+  REQUIRED_VARIABLES=(
+      "PROJECT_ID"
+      "SERVICE_ACCOUNT" 
+      "ORG_NAME" 
+      "GC_PROFILE" 
+      "SECURITY_CATEGORY_KEY" 
+      "PRIVILEGED_USERS_LIST" 
+      "REGULAR_USERS_LIST" 
+      "ALLOWED_DOMAINS" 
+      "DENY_DOMAINS" 
+      "HAS_GUEST_USERS" 
+      "HAS_FEDERATED_USERS" 
+      "ALLOWED_IPS" 
+      "CUSTOMER_IDS" 
+      "CA_ISSUERS" 
+      "ORG_ADMIN_GROUP_EMAIL" 
+      "BREAKGLASS_USER_EMAIL" 
+      "SSC_BUCKET_NAME" 
+      "POLICY_REPO" 
+      "OPA_IMAGE" 
+      "REGION"
+  )
+>>>>>>> update-iam-roles
 
   for setting in "${REQUIRED_VARIABLES[@]}"; do
     if [[ "$setting" == "ALLOWED_IPS" && $HAS_FEDERATED_USERS == "true" ]]; then
@@ -102,7 +142,7 @@ function service_account {
   echo $BINDING_PROMPT 2> >(tee -a "$LOG_FILE" | grep -v -i "warning" >&2)
   gcloud iam service-accounts add-iam-policy-binding $SERVICE_ACCOUNT \
     --member="user:$(gcloud config list account --format "value(core.account)")" \
-    --role="roles/iam.serviceAccountTokenCreator" 2> >(tee -a "$LOG_FILE" | grep -v -i "warning" >&2)1
+    --role="roles/iam.serviceAccountTokenCreator" 2> >(tee -a "$LOG_FILE" | grep -v -i "warning" >&2)
 
 }
 
@@ -141,20 +181,25 @@ function storage_bucket {
 
   # Set the IAM policy for the bucket
   API_ROLES=("legacyBucketReader" "objectViewer" "legacyBucketWriter")
+  
   for role in ${API_ROLES[@]}; do
     gsutil --impersonate-service-account="$SERVICE_ACCOUNT" iam ch \
       serviceAccount:project-$PROJECT_NUMBER@storage-transfer-service.iam.gserviceaccount.com:${role} \
       gs://${BUCKET_NAME} 2> >(tee -a "$LOG_FILE" | grep -v -i "warning" >&2)
   done
+    
+  # gsutil doesn't allow setting IAM policies with custom roles - changed to gcloud command
+  gcloud storage buckets add-iam-policy-binding gs://${BUCKET_NAME} \
+    --member=serviceAccount:service-$PROJECT_NUMBER@gcp-sa-cloudasset.iam.gserviceaccount.com \
+    --role=projects/$PROJECT_ID/roles/cac_storage_object_role \
+    --impersonate-service-account="$SERVICE_ACCOUNT" \
+    2> >(tee -a "$LOG_FILE" | grep -v -i "warning" >&2)
 
-  gsutil --impersonate-service-account="$SERVICE_ACCOUNT" iam ch \
-    serviceAccount:service-$PROJECT_NUMBER@gcp-sa-cloudasset.iam.gserviceaccount.com:objectAdmin \
-    gs://${BUCKET_NAME} 2> >(tee -a "$LOG_FILE" | grep -v -i "warning" >&2)
 
   RUN_HOUR="02:00:00-04:00"
   ORDINAL=$((($RANDOM % 10 + 1)))
 
-  # Set up cloud storage transfer job
+  Set up cloud storage transfer job
   gcloud transfer jobs list --job-statuses=enabled | grep nightly_compliance_transfer >/dev/null 2>&1
   ret=$?
   if [ $ret -ne 0 ]; then
@@ -164,7 +209,7 @@ function storage_bucket {
       --schedule-starts=$(date -d "+1day" -u +"%Y-%m-%dT${RUN_HOUR}") \
       --schedule-repeats-every=p1d
   fi
-}
+ }
 
 function cloudrun_service {
 
