@@ -58,7 +58,7 @@ function config_init {
 
   ## Gathers required information for installation
   printf "$LANG_SETUP_PROMPT"
-  REQUIRED_VARIABLES=("PROJECT_ID" "SERVICE_ACCOUNT" "ORG_NAME" "GC_PROFILE" "SECURITY_CATEGORY_KEY" "PRIVILEGED_USERS_LIST" "REGULAR_USERS_LIST" "ALLOWED_DOMAINS" "DENY_DOMAINS" "HAS_GUEST_USERS" "HAS_FEDERATED_USERS" "ALLOWED_IPS" "CUSTOMER_IDS" "CA_ISSUERS" "ORG_ADMIN_GROUP_EMAIL" "BREAKGLASS_USER_EMAIL" "SSC_BUCKET_NAME" "POLICY_REPO" "OPA_IMAGE" "REGION")
+  REQUIRED_VARIABLES=("PROJECT_ID" "SERVICE_ACCOUNT" "ORG_NAME" "GC_PROFILE" "SECURITY_CATEGORY_KEY" "PRIVILEGED_USERS_LIST" "REGULAR_USERS_LIST" "ALLOWED_DOMAINS" "DENY_DOMAINS" "HAS_GUEST_USERS" "HAS_FEDERATED_USERS" "ALLOWED_IPS" "CUSTOMER_IDS" "CA_ISSUERS" "ORG_ADMIN_GROUP_EMAIL" "BREAKGLASS_USER_EMAILS" "SSC_BUCKET_NAME" "POLICY_REPO" "OPA_IMAGE" "REGION")
 
   for setting in "${REQUIRED_VARIABLES[@]}"; do
     if [[ "$setting" == "ALLOWED_IPS" && $HAS_FEDERATED_USERS == "true" ]]; then
@@ -224,8 +224,8 @@ function cloudrun_service {
                   value: "${DIRECTORY_CUSTOMER_ID}"
                 - name: ORG_ADMIN_GROUP_EMAIL
                   value: "${ORG_ADMIN_GROUP_EMAIL}"
-                - name: BREAKGLASS_USER_EMAIL
-                  value: "${BREAKGLASS_USER_EMAIL}"
+                - name: BREAKGLASS_USER_EMAILS
+                  value: "${BREAKGLASS_USER_EMAILS}"
                 resources:
                   limits:
                     cpu: 4000m
@@ -277,10 +277,10 @@ function cloudrun_service {
                   value: "${SECURITY_CATEGORY_KEY}"
                 - name: GR07_03_ALLOWED_CA_ISSUERS
                   value: "${CA_ISSUERS}"
-                - name: GR13_02_BREAKGLASS_USER_EMAIL
-                  value: "${BREAKGLASS_USER_EMAIL}"
-                - name: GR13_03_BREAKGLASS_USER_EMAIL
-                  value: "${BREAKGLASS_USER_EMAIL}"
+                - name: GR13_02_BREAKGLASS_USER_EMAILS
+                  value: "${BREAKGLASS_USER_EMAILS}"
+                - name: GR13_03_BREAKGLASS_USER_EMAILS
+                  value: "${BREAKGLASS_USER_EMAILS}"
                 resources:
                   limits:
                     cpu: 4000m

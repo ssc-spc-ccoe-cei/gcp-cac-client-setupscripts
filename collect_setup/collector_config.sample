@@ -63,8 +63,8 @@ export CA_ISSUERS="Let's Encrypt,Verisign"
 export ORG_ID="1234567890"
 
 #GR13.2 & GR13.3
-# breakglass user email
-export BREAKGLASS_USER_EMAIL="breakglass-account@example.com"
+# breakglass user emails
+export BREAKGLASS_USER_EMAILS='["breakglass-account@example.com"]'
 
 
 
