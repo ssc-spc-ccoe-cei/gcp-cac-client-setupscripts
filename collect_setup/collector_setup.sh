@@ -267,7 +267,7 @@ function cloudrun_service {
                 - name: ORG_ADMIN_GROUP_EMAIL
                   value: "${ORG_ADMIN_GROUP_EMAIL}"
                 - name: BREAKGLASS_USER_EMAILS
-                  value: "${BREAKGLASS_USER_EMAILS}"
+                  value: '${BREAKGLASS_USER_EMAILS}'
                 resources:
                   limits:
                     cpu: 4000m
@@ -320,9 +320,9 @@ function cloudrun_service {
                 - name: GR07_03_ALLOWED_CA_ISSUERS
                   value: "${CA_ISSUERS}"
                 - name: GR13_02_BREAKGLASS_USER_EMAILS
-                  value: "${BREAKGLASS_USER_EMAILS}"
+                  value: '${BREAKGLASS_USER_EMAILS}'
                 - name: GR13_03_BREAKGLASS_USER_EMAILS
-                  value: "${BREAKGLASS_USER_EMAILS}"
+                  value: '${BREAKGLASS_USER_EMAILS}'
                 resources:
                   limits:
                     cpu: 4000m
