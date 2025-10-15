@@ -216,7 +216,7 @@ echo "
 ## Service Account Information for SSC:
 ##
 ## Compliance Tool Service Account: 
-## $SERVICE_ACCOUNT$PROJECT_ID.iam.gserviceaccount.com
+## $SERVICE_ACCOUNT@$PROJECT_ID.iam.gserviceaccount.com
 ##
 ## CloudRun Robot Account: 
 ## service-$PROJECT_NUMBER@serverless-robot-prod.iam.gserviceaccount.com
