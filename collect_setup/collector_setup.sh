@@ -73,9 +73,7 @@ function config_init {
 
   ## Gathers required information for installation
   printf "$LANG_SETUP_PROMPT"
-<<<<<<< HEAD
-  REQUIRED_VARIABLES=("PROJECT_ID" "SERVICE_ACCOUNT" "ORG_NAME" "GC_PROFILE" "SECURITY_CATEGORY_KEY" "PRIVILEGED_USERS_LIST" "REGULAR_USERS_LIST" "ALLOWED_DOMAINS" "DENY_DOMAINS" "HAS_GUEST_USERS" "HAS_FEDERATED_USERS" "ALLOWED_IPS" "CUSTOMER_IDS" "CA_ISSUERS" "ORG_ADMIN_GROUP_EMAIL" "BREAKGLASS_USER_EMAILS" "SSC_BUCKET_NAME" "POLICY_REPO" "OPA_IMAGE" "REGION")
-=======
+
   REQUIRED_VARIABLES=(
       "PROJECT_ID"
       "SERVICE_ACCOUNT" 
@@ -92,13 +90,12 @@ function config_init {
       "CUSTOMER_IDS" 
       "CA_ISSUERS" 
       "ORG_ADMIN_GROUP_EMAIL" 
-      "BREAKGLASS_USER_EMAIL" 
+      "BREAKGLASS_USER_EMAILS" 
       "SSC_BUCKET_NAME" 
       "POLICY_REPO" 
       "OPA_IMAGE" 
       "REGION"
   )
->>>>>>> update-iam-roles
 
   for setting in "${REQUIRED_VARIABLES[@]}"; do
     if [[ "$setting" == "ALLOWED_IPS" && $HAS_FEDERATED_USERS == "true" ]]; then
