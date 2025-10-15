@@ -28,6 +28,12 @@ PROJECT_ROLES=(
     "run.serviceAgent"
 )
 
+OLD_PROJECT_ROLES=(
+    "storage.admin"
+    "cloudscheduler.admin"
+    "run.developer"
+)
+
 CUSTOM_PROJECT_ROLES=(
     "projects/$PROJECT_ID/roles/cac_storage_role" #storage.admin
     "projects/$PROJECT_ID/roles/cac_scheduler_role"  #cloudscheduler.admin
@@ -133,15 +139,15 @@ function create_custom_project_roles {
     if gcloud iam roles create $role_id \
        --project=$PROJECT_ID \
        --file=$role_yaml \
-       --quiet >>$LOG_FILE 2>&1; then
-      echo "$LANG_CUSTOM_PROJECT_ROLE_CREATED $role_id in project $PROJECT_ID"
+       --quiet >>$LOG_FILE 2>&1
+    then
+      : # Do nothing
     else
       # If creation failed (likely because role exists) then update it instead
       gcloud iam roles update $role_id \
         --project=$PROJECT_ID \
         --file=$role_yaml \
         --quiet >>$LOG_FILE 2>&1
-      echo "$LANG_CUSTOM_PROJECT_ROLE_UPDATED $role_id in project $PROJECT_ID"
     fi
     
   done
@@ -155,6 +161,13 @@ function service_account_setup {
 
   echo "$LANG_SA_SETUP"
   
+    # Remove old pre-defined roles from service account, if they exist
+    for role in "${OLD_PROJECT_ROLES[@]}"; do
+        gcloud projects remove-iam-policy-binding ${PROJECT_ID} \
+        --member=serviceAccount:${SERVICE_ACCOUNT}@$PROJECT_ID.iam.gserviceaccount.com \
+        --role=roles/${role} >>$LOG_FILE 2>&1
+    done
+
     for role in ${PROJECT_ROLES[@]}; do
         gcloud projects add-iam-policy-binding ${PROJECT_ID} \
         --member=serviceAccount:$SERVICE_ACCOUNT@$PROJECT_ID.iam.gserviceaccount.com \
