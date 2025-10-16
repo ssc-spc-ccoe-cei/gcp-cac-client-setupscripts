@@ -287,6 +287,8 @@ function cloudrun_service {
                     ls -l /mnt/policies
                     /usr/bin/opa run --server --h2c --addr :8181 --log-level debug --disable-telemetry --set server.decoding.max_length=536870912 --set server.decoding.gzip.max_length=1073741824 /mnt/policies
                 env:
+                - name: GC_PROFILE
+                  value: "${GC_PROFILE}"
                 - name: GR11_04_ORG_ID
                   value: "${ORG_ID}"
                 - name: GR01_03_ORG_ADMIN_GROUP_EMAIL
