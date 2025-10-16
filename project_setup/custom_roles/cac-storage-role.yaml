@@ -12,5 +12,6 @@ includedPermissions:
   - storage.objects.get
   - storage.objects.list
   - storage.objects.update
+  - storage.objects.delete
   - storage.objects.getIamPolicy
   - storage.objects.setIamPolicy
