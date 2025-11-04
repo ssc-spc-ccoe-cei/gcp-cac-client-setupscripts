@@ -123,8 +123,6 @@ function enable_apis {
 }
 
 function create_custom_project_roles {
-  echo "$LANG_CUSTOM_ROLES"
-  
   for role_file in ${CUSTOM_PROJECT_ROLES_FILES[@]}; do
     role_id="${role_file//-/_}"  # Convert hyphens to underscores for role ID
     role_yaml="$CUSTOM_ROLES_DIR/${role_file}.yaml"
