@@ -122,12 +122,6 @@ function enable_apis {
   done
 }
 
-# # TO-DO: Add to english/french files
-LANG_CUSTOM_ROLES="Installing custom roles:"
-LANG_CUSTOM_PROJECT_ROLE_CREATED="Custom project role created:"
-LANG_CUSTOM_PROJECT_ROLE_UPDATED="Custom project role updated:"
-
-
 function create_custom_project_roles {
   echo "$LANG_CUSTOM_ROLES"
   
