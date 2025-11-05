@@ -6,7 +6,20 @@
 set -o pipefail
 
 ## declare an array of policies
-declare -a ROLES=("roles/iam.workloadIdentityUser" "roles/run.developer" "roles/iam.serviceAccountUser" "roles/storage.admin" "roles/cloudscheduler.admin" "roles/run.invoker" "roles/run.serviceAgent" "roles/cloudasset.viewer" "roles/logging.viewer" "roles/securitycenter.adminViewer")
+declare -a ROLES=(
+    "roles/iam.workloadIdentityUser" 
+    "roles/iam.serviceAccountUser"  
+    "roles/run.invoker" 
+    "roles/run.serviceAgent" 
+    "roles/cloudasset.viewer" 
+    "roles/logging.viewer" 
+    "roles/securitycenter.adminViewer"
+    "projects/$PROJECT_ID/roles/cac_storage_role" #storage.admin
+    "projects/$PROJECT_ID/roles/cac_scheduler_role"  #cloudscheduler.admin
+    "projects/$PROJECT_ID/roles/cac_run_role" #run.developer
+)
+
+
 ROLE_COUNT=$(echo "${ROLES[@]}" | wc -w)
 # Declare cloud run service name
 CLOUD_RUN="compliance-analysis"
@@ -15,6 +28,7 @@ LOG_FILE="deployment-setup.log"
 SCHEDULE="0 0 * * *"
 LOG_LEVEL="INFO"
 DATE=$(date)
+
 function clean_up {
   # Find and delete all directories starting with "guardrail" in the current working directory
   for dir in $(find . -type d -name "guardrail-*"); do
@@ -23,6 +37,7 @@ function clean_up {
     echo "Deleted $dir"
   done
 }
+
 function input_language {
   ## Allows user to set preferred install language.
   read -p " 
@@ -58,7 +73,29 @@ function config_init {
 
   ## Gathers required information for installation
   printf "$LANG_SETUP_PROMPT"
-  REQUIRED_VARIABLES=("PROJECT_ID" "SERVICE_ACCOUNT" "ORG_NAME" "GC_PROFILE" "SECURITY_CATEGORY_KEY" "PRIVILEGED_USERS_LIST" "REGULAR_USERS_LIST" "ALLOWED_DOMAINS" "DENY_DOMAINS" "HAS_GUEST_USERS" "HAS_FEDERATED_USERS" "ALLOWED_IPS" "CUSTOMER_IDS" "CA_ISSUERS" "ORG_ADMIN_GROUP_EMAIL" "BREAKGLASS_USER_EMAIL" "SSC_BUCKET_NAME" "POLICY_REPO" "OPA_IMAGE" "REGION")
+
+  REQUIRED_VARIABLES=(
+      "PROJECT_ID"
+      "SERVICE_ACCOUNT" 
+      "ORG_NAME" 
+      "GC_PROFILE" 
+      "SECURITY_CATEGORY_KEY" 
+      "PRIVILEGED_USERS_LIST" 
+      "REGULAR_USERS_LIST" 
+      "ALLOWED_DOMAINS" 
+      "DENY_DOMAINS" 
+      "HAS_GUEST_USERS" 
+      "HAS_FEDERATED_USERS" 
+      "ALLOWED_IPS" 
+      "CUSTOMER_IDS" 
+      "CA_ISSUERS" 
+      "ORG_ADMIN_GROUP_EMAIL" 
+      "BREAKGLASS_USER_EMAILS" 
+      "SSC_BUCKET_NAME" 
+      "POLICY_REPO" 
+      "OPA_IMAGE" 
+      "REGION"
+  )
 
   for setting in "${REQUIRED_VARIABLES[@]}"; do
     if [[ "$setting" == "ALLOWED_IPS" && $HAS_FEDERATED_USERS == "true" ]]; then
@@ -102,7 +139,7 @@ function service_account {
   echo $BINDING_PROMPT 2> >(tee -a "$LOG_FILE" | grep -v -i "warning" >&2)
   gcloud iam service-accounts add-iam-policy-binding $SERVICE_ACCOUNT \
     --member="user:$(gcloud config list account --format "value(core.account)")" \
-    --role="roles/iam.serviceAccountTokenCreator" 2> >(tee -a "$LOG_FILE" | grep -v -i "warning" >&2)1
+    --role="roles/iam.serviceAccountTokenCreator" 2> >(tee -a "$LOG_FILE" | grep -v -i "warning" >&2)
 
 }
 
@@ -141,15 +178,20 @@ function storage_bucket {
 
   # Set the IAM policy for the bucket
   API_ROLES=("legacyBucketReader" "objectViewer" "legacyBucketWriter")
+  
   for role in ${API_ROLES[@]}; do
     gsutil --impersonate-service-account="$SERVICE_ACCOUNT" iam ch \
       serviceAccount:project-$PROJECT_NUMBER@storage-transfer-service.iam.gserviceaccount.com:${role} \
       gs://${BUCKET_NAME} 2> >(tee -a "$LOG_FILE" | grep -v -i "warning" >&2)
   done
+    
+  # gsutil doesn't allow setting IAM policies with custom roles - changed to gcloud command
+  gcloud storage buckets add-iam-policy-binding gs://${BUCKET_NAME} \
+    --member=serviceAccount:service-$PROJECT_NUMBER@gcp-sa-cloudasset.iam.gserviceaccount.com \
+    --role=projects/$PROJECT_ID/roles/cac_storage_object_role \
+    --impersonate-service-account="$SERVICE_ACCOUNT" \
+    2> >(tee -a "$LOG_FILE" | grep -v -i "warning" >&2)
 
-  gsutil --impersonate-service-account="$SERVICE_ACCOUNT" iam ch \
-    serviceAccount:service-$PROJECT_NUMBER@gcp-sa-cloudasset.iam.gserviceaccount.com:objectAdmin \
-    gs://${BUCKET_NAME} 2> >(tee -a "$LOG_FILE" | grep -v -i "warning" >&2)
 
   RUN_HOUR="02:00:00-04:00"
   ORDINAL=$((($RANDOM % 10 + 1)))
@@ -164,7 +206,7 @@ function storage_bucket {
       --schedule-starts=$(date -d "+1day" -u +"%Y-%m-%dT${RUN_HOUR}") \
       --schedule-repeats-every=p1d
   fi
-}
+ }
 
 function cloudrun_service {
 
@@ -224,8 +266,8 @@ function cloudrun_service {
                   value: "${DIRECTORY_CUSTOMER_ID}"
                 - name: ORG_ADMIN_GROUP_EMAIL
                   value: "${ORG_ADMIN_GROUP_EMAIL}"
-                - name: BREAKGLASS_USER_EMAIL
-                  value: "${BREAKGLASS_USER_EMAIL}"
+                - name: BREAKGLASS_USER_EMAILS
+                  value: '${BREAKGLASS_USER_EMAILS}'
                 resources:
                   limits:
                     cpu: 4000m
@@ -245,6 +287,8 @@ function cloudrun_service {
                     ls -l /mnt/policies
                     /usr/bin/opa run --server --h2c --addr :8181 --log-level debug --disable-telemetry --set server.decoding.max_length=536870912 --set server.decoding.gzip.max_length=1073741824 /mnt/policies
                 env:
+                - name: GC_PROFILE
+                  value: "${GC_PROFILE}"
                 - name: GR11_04_ORG_ID
                   value: "${ORG_ID}"
                 - name: GR01_03_ORG_ADMIN_GROUP_EMAIL
@@ -277,10 +321,10 @@ function cloudrun_service {
                   value: "${SECURITY_CATEGORY_KEY}"
                 - name: GR07_03_ALLOWED_CA_ISSUERS
                   value: "${CA_ISSUERS}"
-                - name: GR13_02_BREAKGLASS_USER_EMAIL
-                  value: "${BREAKGLASS_USER_EMAIL}"
-                - name: GR13_03_BREAKGLASS_USER_EMAIL
-                  value: "${BREAKGLASS_USER_EMAIL}"
+                - name: GR13_02_BREAKGLASS_USER_EMAILS
+                  value: '${BREAKGLASS_USER_EMAILS}'
+                - name: GR13_03_BREAKGLASS_USER_EMAILS
+                  value: '${BREAKGLASS_USER_EMAILS}'
                 resources:
                   limits:
                     cpu: 4000m

@@ -1,0 +1,5 @@
+title: "CaC Scheduler Role"  
+description: "Custom role for CaC solution Cloud Scheduler operations"
+stage: "GA"
+includedPermissions:
+   - cloudscheduler.jobs.create

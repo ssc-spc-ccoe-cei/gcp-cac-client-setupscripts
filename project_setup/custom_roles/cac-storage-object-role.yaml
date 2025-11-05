@@ -1,0 +1,10 @@
+title: "CaC Storage Object Role"
+description: "Custom role for CaC solution Cloud Storage Objects operations"
+stage: "GA"
+includedPermissions:
+  - storage.objects.create
+  - storage.objects.get
+  - storage.objects.list
+  - storage.objects.update
+  - storage.objects.getIamPolicy
+  - storage.objects.setIamPolicy
