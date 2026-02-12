@@ -242,7 +242,6 @@ function validate_prereqs {
       "roles/iam.roleAdmin"
       "roles/serviceusage.serviceUsageAdmin"
       "roles/iam.serviceAccountAdmin"
-      "roles/storage.admin"
   )
   
   MEMBER="user:$ACCOUNT"
@@ -550,31 +549,4 @@ function print_completion {
   Storage Transfer Robot Account:   $storage_sa
   Binary Auth Robot Account:        $binauth_sa
 EOF
-}
-
-function create_gcs_bucket {
-  local bucket_name="${PROJECT_ID}-cac-sa-info"
-
-  # only create if it doesn't already exist
-  if gcloud storage buckets list --project="$PROJECT_ID" --format="value(name)" | grep -qx "$bucket_name"; then
-    log_message "$LANG_GCS_BUCKET_EXISTS"
-    return 0
-  else
-    run_command \
-      "gcloud storage buckets create gs://$bucket_name --project=$PROJECT_ID --location=northamerica-northeast1" \
-      "$LANG_CREATING_GCS_BUCKET $bucket_name" \
-      "$LANG_FAILED_CREATE_GCS_BUCKET $bucket_name."
-  fi
-}
-
-function push_credentials_to_bucket {
-  local bucket_name="${PROJECT_ID}-cac-sa-info"
-  local file_to_upload="service_accounts.json"
-
-  run_command \
-    "gcloud storage cp $file_to_upload gs://$bucket_name/" \
-    "$LANG_UPLOADING_SERVICE_ACCOUNT_INFO" \
-    "$LANG_FAILED_UPLOAD_SERVICE_ACCOUNT_INFO"
-
-  rm -f $file_to_upload
 }

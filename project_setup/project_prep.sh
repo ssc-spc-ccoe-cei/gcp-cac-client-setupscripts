@@ -22,6 +22,4 @@ enable_apis                 # Enables required APIs for the project
 create_custom_project_roles # Creates custom roles for the project
 service_account_setup       # Creates service account and keys, grants permissions
 service_identities_create   # Creates service identities for required services and grants them permissions
-create_gcs_bucket           # Creates GCS bucket for storing service account info to northamerica-northeast1 (Montreal)
 print_completion            # Prints completion message and location of output file
-push_credentials_to_bucket  # Pushes service account credentials to GCS bucket
