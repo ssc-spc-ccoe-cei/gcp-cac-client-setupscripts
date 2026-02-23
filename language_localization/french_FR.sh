@@ -1,23 +1,35 @@
-LANG_SUCCESS="[SUCCÈS]"
-LANG_FAILURE="[ÉCHEC]"
-LANG_PREFLIGHT_FAILED_EXITING="Vérification préalable échouée. Abandon."
+# Logging for collector_setup_old.sh refactor
+LANG_LOG_DELETED_DIR="Répertoire supprimé :"
+LANG_LOG_CLOUDRUN_DEPLOY="Déploiement du service Cloud Run."
+
+# Status & Errors
+LANG_ERROR="$(date) [ERROR] Invalid input. Please select an appropriate option"
+
+# Pre-checks & Auth
 LANG_GCLOUD_NOT_INSTALLED="L'interface CLI gcloud n'est pas installée. Veuillez l'installer et réessayer."
 LANG_GCLOUD_INSTALLED="L'interface CLI gcloud est installée."
-LANG_NO_PROJECT_SET="Aucun projet GCP n'est défini. Veuillez définir un nom de projet avec 'export PROJECT_ID=votre-projet-nom' et réessayer."
-LANG_PROJECT_SET="Le projet GCP est défini sur"
+LANG_GCLOUD_AUTH_OK="gcloud authentication is successful."
+LANG_GCLOUD_AUTH_FAIL="gcloud authentication failed."
+
+# Roles
+LANG_OWNER_ROLE_PRESENT="L'utilisateur a le rôle de propriétaire, sauts de vérification de rôle individuels."
 LANG_MISSING_ROLE="Rôle requis manquant :"
 LANG_MISSING_ROLE_SUFFIX="Veuillez vous assurer que vous disposez des autorisations nécessaires."
 LANG_ROLE_PRESENT="Rôle requis présent :"
-LANG_GCS_PERMISSIONS_OK="Vous avez les autorisations pour créer des buckets GCS dans le projet."
-LANG_GCS_PERMISSIONS_FAIL="Vous n'avez pas les autorisations pour créer des buckets GCS dans le projet. Veuillez vous assurer que vous disposez des autorisations nécessaires."
-LANG_COMPLETION_BANNER="┌───────────────────────────────────────────────────────┐\n│                                                       │\n│   Préparation de l'environnement CaC terminée avec succès  │\n│                                                       │\n└───────────────────────────────────────────────────────┘"
+
+# Completion
+LANG_COMPLETION_BANNER="┌────────────────────────────────────────────────────────────┐\n│                                                            │\n│   Préparation de l'environnement CaC terminée avec succès  │\n│                                                            │\n└────────────────────────────────────────────────────────────┘"
 LANG_SERVICE_ACCOUNT_INFO="  Informations sur les comptes de service pour SSC :"
 LANG_COMPLIANCE_TOOL_SA="  Compte de service Compliance Tool : "
-LANG_CLOUD_RUN_ROBOT_ACCOUNT="  Compte Robot Cloud Run :          "
-LANG_STORAGE_TRANSFER_ROBOT_ACCOUNT="  Compte Robot Storage Transfer :   "
-LANG_BINARY_AUTH_ROBOT_ACCOUNT="  Compte Robot Binary Auth :        "
+LANG_CLOUD_RUN_ROBOT_ACCOUNT="  Compte Robot Cloud Run :            "
+LANG_STORAGE_TRANSFER_ROBOT_ACCOUNT="  Compte Robot Storage Transfer :     "
+LANG_BINARY_AUTH_ROBOT_ACCOUNT="  Compte Robot Binary Auth :          "
+
+# Service Enablement
 LANG_ENABLING_SERVICE="Activation du service :"
 LANG_COULD_NOT_ENABLE_SERVICE="Impossible d'activer"
+
+# Custom Roles
 LANG_CONFIGURING_ROLE="Configuration du rôle :"
 LANG_FAILED_CREATE_OR_UPDATE_ROLE="Échec de la création ou de la mise à jour du rôle"
 LANG_GRANTING_ROLE="Attribution du rôle :"
@@ -26,22 +38,24 @@ LANG_GRANTING_CUSTOM_ROLE="Attribution du rôle personnalisé :"
 LANG_FAILED_GRANT_CUSTOM_ROLE="Échec de l'attribution du rôle personnalisé"
 LANG_GRANTING_ORG_ROLE="Attribution du rôle d'organisation :"
 LANG_FAILED_GRANT_ORG_ROLE="Échec de l'attribution du rôle d'organisation. Vérifiez vos permissions sur l'ID d'organisation :"
+
+# Identities
 LANG_CREATING_IDENTITY_FOR="Création d'une identité pour :"
 LANG_COULD_NOT_CREATE_IDENTITY_FOR="Impossible de créer une identité pour"
 LANG_GRANTING_STORAGE_VIEWER_TO_TRANSFER_SERVICE="Attribution du rôle Storage Viewer au service de transfert"
 LANG_FAILED_GRANT_ROLE_TO_TRANSFER_SERVICE_AGENT="Échec de l'attribution du rôle à l'agent du service de transfert."
 LANG_GRANTING_CUSTOM_STORAGE_ROLE_TO_ASSET_SERVICE="Attribution du rôle de stockage personnalisé au service Cloud Asset"
 LANG_FAILED_GRANT_CUSTOM_ROLE_TO_ASSET_AGENT="Échec de l'attribution du rôle personnalisé à l'agent Cloud Asset."
-LANG_CREATING_GCS_BUCKET="Création du bucket GCS :"
-LANG_FAILED_CREATE_GCS_BUCKET="Échec de la création du bucket GCS"
-LANG_UPLOADING_SERVICE_ACCOUNT_INFO="Téléversement des informations du compte de service vers le bucket GCS"
-LANG_FAILED_UPLOAD_SERVICE_ACCOUNT_INFO="Échec du téléversement des informations du compte de service vers le bucket GCS. Vérifiez si le bucket existe et si vous avez les permissions nécessaires pour y écrire."
+
+# Verification
 LANG_PROJECT_ID_VERIFIED="ID du projet vérifié avec succès :"
 LANG_PROJECT_NUMBER_VERIFIED="Numéro de projet vérifié avec succès :"
 LANG_BILLING_ENABLED="La facturation est activée pour"
 LANG_ORG_ID_VERIFIED="ID d'organisation vérifié avec succès :"
 LANG_REMOVING_LEGACY_ROLE="Suppression de l'ancien rôle :"
 LANG_COULD_NOT_REMOVE_ROLE="Impossible de supprimer le rôle"
+
+# Info Messages
 LANG_CHECKING_PREREQS="INFO : Vérification des prérequis..."
 LANG_VERIFYING_PROJECT_ID="INFO : Vérification de l'ID du projet..."
 LANG_FETCHING_PROJECT_NUMBER="INFO : Récupération du numéro du projet..."
@@ -53,133 +67,67 @@ LANG_CLEANING_UP_LEGACY_ROLES="Nettoyage des anciens rôles..."
 LANG_GRANTING_PROJECT_ROLES="Attribution des rôles de projet..."
 LANG_GRANTING_CUSTOM_ROLES="Attribution des rôles personnalisés..."
 LANG_GRANTING_ORG_ROLES="Attribution des rôles d'organisation..."
-LANG_GCS_BUCKET_EXISTS="Le bucket GCS existe déjà. Création ignorée."
 LANG_GRANTING_ROLES_TO_SERVICE_IDENTITIES="Attribution des rôles aux identités de service Google..."
-PROMPT="
-Veuillez confirmer en entrant de nouveau le nom:
->"
+LANG_CHECKING_GCLOUD_INSTALLATION="INFO: Checking gcloud installation..."
+LANG_CHECKING_GCLOUD_AUTH="INFO: Checking gcloud authentication..."
+LANG_CHECKING_GCLOUD_IAM="INFO: Checking gcloud IAM..."
 
-LANG_SETUP_PROMPT="
-################################################################################
-##      Collecte des informations requises                                 ##
-################################################################################
+# Setup Info
+LANG_APIS="\n\nINFO: Activation des services de projet requis : Cloud Run, Cloud Storage et Cloud Scheduler"
+LANG_SA_SETUP="\n\nINFO : Créer un compte de service CaC et ajouter des permissions"
+LANG_SI_CREATE="\n\nINFO : Création des identités de service Google\n"
 
-"
-LANG_VALIDATION_PROMPT="
-################################################################################
-##         Validation de l'information requise                                ##
-################################################################################
+# New Variables (Project Setup)
+LANG_ERROR_UNEXPECTED="Une erreur inattendue s'est produite. Le script ne peut pas continuer."
+LANG_LANGUAGE_SET="Langue définie sur Français."
+LANG_ERROR_NO_PROJECT_ID="Aucun projet Google Cloud défini. Exécutez : gcloud config set project <id> ou utilisez un fichier .env avec PROJECT_ID=<id>."
+LANG_ERROR_PROJECT_NUMBER="Impossible de vérifier le numéro de projet."
+LANG_ERROR_BILLING_NOT_ENABLED="La facturation n'est PAS activée pour"
+LANG_ERROR_ORG_ID="Impossible de vérifier l'ID de l'organisation."
+LANG_SA_DESCRIPTION="Compte de service de la solution CaC"
+LANG_CREATING_SA="Création du compte de service :"
+LANG_ERROR_CREATING_SA="Impossible de créer le compte de service :"
 
-"
-LANG_DEPLOYMENT_PROMPT="
-################################################################################
-##     Lancement du déploiement de l'outil CaC                                ##
-################################################################################
-
-"
-
-LANG_APIS="
-
-INFO: Activation des services de projet requis : Cloud Run, Cloud Storage et Cloud Scheduler"
-
-LANG_SA_SETUP="
-INFO : Créer un compte de service CaC et ajouter des permissions"
-LANG_SI_CREATE="
-
-INFO : Création des identités de service Google
-"
-
-LANG_SERVICE_ACCOUNT="
-Veuillez entrer le nom du compte de service:
->"
-
-LANG_ORG_ID="
-Veuillez entrer le numéro d’identification numérique de l’organisation du GCP:
->"
-LANG_ORG_NAME="
-Veuillez entrer le nom de l'organisation GCP:
->"
-LANG_GC_PROFILE="
-Veuillez entrer le niveau du profil d’utilisation du nuage de l’organisation (1-6):
->"
-LANG_BUCKET="
-Veuillez entrer l'URL du seau de stockage Google Cloud:
->"
-
-LANG_POLICY="
-Veuillez entrer l'adresse universelle (URL) du référentiel contenant les politiques de conformité:
->"
-
-LANG_PROJECT="est détecté comme le projet associé à gcloud cli, 
-appuyez sur Entrée pour continuer à utiliser ce projet 
-ou entrez un nom de projet différent:
->"
-
-LANG_REGION="
-Veuillez sélectionner une région d’installation:
-1) northamerica-northeast1 (Canada - Montréal)
-2) northamerica-northeast2 (Canada - Toronto)
->"
-LANG_CONFIG_PROMPT="
-INFO: Fichier de configuration trouvé, l'installation utilisera les valeurs pour continuer
-"
-
-CONFIRM_PROJECT="
-INFO: L'outil CaC sera déployé dans le projet"
-
-CONFIRM_REGION="
-INFO: L'outil CaC sera déployé dans la région"
-
-CONFIRM_SERVICE_ACCOUNT="
-INFO: L'outil CaC sera déployé en utilisant le compte de service"
-
-SA_ERROR="
-ERREUR : Compte de service non trouvé. Veuillez vérifier et réessayer"
-
-SA_POLICY_ERROR="
-AVERTISSEMENT: Les permissions du compte de service sont surprovisionnées
-"
-SA_CURRENT_POLICY="
-Les permissions actuelles sont:"
-SA_REQUIRED_POLICY="
-Les permissions requises sont:
-"
-
-BINDING_PROMPT="
-INFO : Lier le compte de service à l’utilisateur principal..."
-ROLE_VALIDATION_PROMPT="
-INFO: Vérification de l'accès et des permissions du compte de service..."
-ROLES_VALIDATION="
-Rôle correctement attribué à  "
-ROLES_VALIDATION_SUCCESS="
-INFO: Validation des rôles requis pour le compte de service"
-ROLES_VALIDATION_ERROR="
-ERREUR: Le compte de service manque les rôles suivants:
-"
-POLICY_CONFIRMATION="
-*** Êtes-vous certain de vouloir continuer? (y/n)
->"
-
-POLICY_CONTINUE="
-INFO: Déploiement continu"
-POLICY_EXIT="Annulation du déploiement"
-
-CAC_IMAGE="
-Entrez l'image du conteneur à utiliser: 
->"
-CAC_OPA_IMAGE="
-Entrez l' OPA image du conteneur à utiliser: 
->"
-CREATE_BUCKET="
-INFO: CCréation d'un sceau-pivot pour la mise en conformité des mesures de protection du nuage GC ..."
-CONFIG_BUCKET="
-INFO: Configuration des classes de stockage et des versions..."
-CREATE_FOLDERS="
-INFO: Création de répertoires pour chaque mesures de protection du nuage GC..."
-CREATE_CRUN="
-INFO: Créer un service Cloud Run en arrière-plan..."
-CREATE_CSCHEDULER="
-INFO: Création de la cédule de travail de Cloud Scheduler..."
-COMPLETED="
-SUCCÈS: Le déploiement de l'outil CaC est complété"
-LANG_OWNER_ROLE_PRESENT="L'utilisateur a le rôle de propriétaire, sauts de vérification de rôle individuels."
+# Collector Setup Variables
+LANG_ERROR_CREATE_LOG="Échec de la création du fichier journal."
+LANG_LOG_CREATED="Fichiers journaux créés avec succès."
+LANG_CHECKING_VARIABLES="Vérification que les variables requises ont été définies..."
+LANG_ERROR_MISSING_VARS="Variable(s) requise(s) manquante(s) :"
+LANG_CONFIG_INITIALIZED="Variables de configuration initialisées avec succès."
+LANG_CONFIGURING_SA="Configuration du compte de service..."
+LANG_CONFIRMING_SA="Confirmation de l'existence du compte de service :"
+LANG_ERROR_SA_NOT_EXIST="Le compte de service ne semble pas exister :"
+LANG_BINDING_TOKEN_CREATOR="Liaison du rôle Créateur de jeton de compte de service"
+LANG_ERROR_BINDING_TOKEN_CREATOR="Échec de la liaison du rôle Créateur de jeton de compte de service"
+LANG_GRANTING_STORAGE_TRANSFER="Attribution du rôle roles/storagetransfer.admin"
+LANG_ERROR_GRANTING_STORAGE_TRANSFER="Échec de l'attribution du rôle roles/storagetransfer.admin à"
+LANG_CREATING_BUCKET="Création du bucket :"
+LANG_ERROR_CREATING_BUCKET="Échec de la création du bucket :"
+LANG_SETTING_STORAGE_CLASS="Définition de la classe de stockage par défaut sur STANDARD pour le bucket :"
+LANG_ERROR_SETTING_STORAGE_CLASS="Échec de la définition de la classe de stockage par défaut pour le bucket :"
+LANG_ENABLING_VERSIONING="Activation du versionnage pour le bucket :"
+LANG_ERROR_ENABLING_VERSIONING="Échec de l'activation du versionnage pour le bucket :"
+LANG_INSTRUCTION_FILE_CONTENT="Veuillez utiliser cet espace pour télécharger les fichiers liés à la conformité"
+LANG_UPLOADING_GUARDRAIL="Téléversement de guardrail-"
+LANG_ERROR_UPLOADING_GUARDRAIL="Échec du téléversement de guardrail-"
+LANG_SETTING_IAM_POLICY="Configuration de la politique IAM pour le rôle personnalisé"
+LANG_ERROR_SETTING_IAM_POLICY="Échec de la configuration de la politique IAM pour le rôle personnalisé"
+LANG_CREATING_TRANSFER_JOB="Création de la tâche nightly_compliance_transfer"
+LANG_ERROR_CREATING_TRANSFER_JOB="Échec de la création de la tâche nightly_compliance_transfer"
+LANG_CONFIGURING_CLOUD_RUN="Configuration de la tâche Cloud Run..."
+LANG_ERROR_DEPLOYING_CLOUD_RUN="Échec du déploiement du service Cloud Run"
+LANG_ENABLING_BIN_AUTH="Activation de l'autorisation binaire pour le service Cloud Run"
+LANG_ERROR_ENABLING_BIN_AUTH="Échec de l'activation de l'autorisation binaire pour le service Cloud Run"
+LANG_CREATING_SCHEDULER="Création de la tâche Cloud Scheduler :"
+LANG_ERROR_CREATING_SCHEDULER="Impossible de créer la tâche Cloud Scheduler :"
+LANG_PROMPT_UPLOAD_CONFIG="Voulez-vous télécharger votre fichier de configuration vers Cloud Storage pour la sauvegarde ? (1 = Oui, 0 = Non) : "
+LANG_SKIPPING_UPLOAD="Téléchargement vers Cloud Storage ignoré."
+LANG_ERROR_INVALID_YES_NO="Entrée invalide. Veuillez entrer 1 (Oui) ou 0 (Non)."
+LANG_CREATING_CONFIG_FILE="Création du fichier de configuration du collecteur"
+LANG_ERROR_CREATING_CONFIG_FILE="Échec de la création du fichier de configuration du collecteur"
+LANG_CREATING_BACKUP_BUCKET="Création du bucket :"
+LANG_ERROR_CREATING_BACKUP_BUCKET="Échec de la création du bucket :"
+LANG_UPLOADING_CONFIG="Téléversement du fichier de configuration vers Cloud Storage :"
+LANG_ERROR_UPLOADING_CONFIG="Échec du téléversement du fichier de configuration vers Cloud Storage :"
+LANG_ERROR_NO_CONFIG_FILE="Aucun fichier collector_config.txt trouvé pour le téléversement vers GCS."
+LANG_COMPLETION_BANNER_COLLECTOR="\n┌────────────────────────────────────────────────────────────┐\n│                                                            │\n│    Configuration du collecteur CaC terminée avec succès    │\n│                                                            │\n└────────────────────────────────────────────────────────────┘\n"
