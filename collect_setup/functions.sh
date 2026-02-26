@@ -86,6 +86,7 @@ function config_init {
   JOB_NAME="compliance-analysis-automation-$(echo "${ACCOUNT_NUMBER}" | tr '[:upper:]' '[:lower:]')"
   BUCKET_NAME="compliance-hub-"$(echo ${ACCOUNT_NUMBER} | tr '[:upper:]' '[:lower:]')
   CONFIG_BACKUP_BUCKET_NAME="collector-config-backup-"$(echo ${ACCOUNT_NUMBER} | tr '[:upper:]' '[:lower:]')
+  CONFIG_FILE="collector_config.txt"
 
   print_success "$LANG_CONFIG_INITIALIZED"
 
@@ -443,9 +444,7 @@ function prompt_store_variables_to_gcs() {
 
 function generate_collector_config() {
 
-  local outfile="collector_config.txt"
-
-  cat <<EOF > "$outfile"
+  cat <<EOF > "$CONFIG_FILE"
   ###--------------------------------------
   # Python app.py deployment settings
   #----------------------------------------
