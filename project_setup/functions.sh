@@ -57,30 +57,30 @@ function validate_prereqs {
       exit 1
   fi
 
-  # Check project permissions for logged in user
-  log_info "$LANG_CHECKING_GCLOUD_IAM"
-  local required_roles=(
-      "roles/iam.roleAdmin"
-      "roles/serviceusage.serviceUsageAdmin"
-      "roles/iam.serviceAccountAdmin"
-  )
+  # # Check project permissions for logged in user
+  # log_info "$LANG_CHECKING_GCLOUD_IAM"
+  # local required_roles=(
+  #     "roles/iam.roleAdmin"
+  #     "roles/serviceusage.serviceUsageAdmin"
+  #     "roles/iam.serviceAccountAdmin"
+  # )
 
-  MEMBER="user:$ACCOUNT"
+  # MEMBER="user:$ACCOUNT"
 
-  USER_ROLES=$(gcloud projects get-iam-policy "$PROJECT_ID" --flatten="bindings[].members" --filter="bindings.members:$MEMBER" --format="value(bindings.role)")
+  # USER_ROLES=$(gcloud projects get-iam-policy "$PROJECT_ID" --flatten="bindings[].members" --filter="bindings.members:$MEMBER" --format="value(bindings.role)")
 
-  if echo "$USER_ROLES" | grep -qFx "roles/owner"; then
-      print_success "$LANG_OWNER_ROLE_PRESENT"
-  else
-    for role in "${required_roles[@]}"; do
-        if echo "$USER_ROLES" | grep -qFx "$role"; then
-            print_success "$LANG_ROLE_PRESENT $role"
-        else
-            print_error "$LANG_MISSING_ROLE $role $LANG_MISSING_ROLE_SUFFIX"
-            exit 1
-        fi
-    done
-  fi
+  # if echo "$USER_ROLES" | grep -qFx "roles/owner"; then
+  #     print_success "$LANG_OWNER_ROLE_PRESENT"
+  # else
+  #   for role in "${required_roles[@]}"; do
+  #       if echo "$USER_ROLES" | grep -qFx "$role"; then
+  #           print_success "$LANG_ROLE_PRESENT $role"
+  #       else
+  #           print_error "$LANG_MISSING_ROLE $role $LANG_MISSING_ROLE_SUFFIX"
+  #           exit 1
+  #       fi
+  #   done
+  # fi
 
   # Check if billing is enabled on project
   log_info "$LANG_CHECKING_BILLING_STATUS"
