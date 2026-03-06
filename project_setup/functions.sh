@@ -7,10 +7,10 @@ function logging_init {
   log_info "$LANG_CREATING_LOG_FILES"
 
   if ! echo "[INFO] --- Log Started ---" > "$LOG_FILE"; then
-    print_error "[ERROR] Failed to create log file."
+    print_error "$LANG_ERROR_CREATE_LOG"
     exit 1
   else
-    print_success "Log files created successfully."
+    print_success "$LANG_LOG_CREATED"
   fi
 }
 

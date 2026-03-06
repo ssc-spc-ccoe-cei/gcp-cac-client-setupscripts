@@ -41,8 +41,8 @@ function log_step() {
 function print_error {
   local error_msg="$1"
   tput setaf 1
-  log_message "[FAILED]" >&2
-  log_message "[ERROR] ${error_msg}" >&2
+  log_message "${LANG_STATUS_FAILED:-[FAILED]}" >&2
+  log_message "${LANG_STATUS_ERROR:-[ERROR]} ${error_msg}" >&2
 
   # Only show logs if the file actually exists and has content
   if [ -s "$LOG_FILE" ]; then
@@ -56,7 +56,7 @@ function print_error {
 function print_success {
   local message="${1:-}"
   tput setaf 2
-  log_message "[SUCCESS] ${message}"
+  log_message "${LANG_STATUS_SUCCESS:-[SUCCESS]} ${message}"
   tput sgr0
 }
 

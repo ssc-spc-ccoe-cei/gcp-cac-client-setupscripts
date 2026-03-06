@@ -4,6 +4,9 @@ LANG_LOG_CLOUDRUN_DEPLOY="Deploying Cloud Run service."
 
 # Status & Errors
 LANG_ERROR="$(date) [ERROR] Invalid input. Please select an appropriate option"
+LANG_STATUS_SUCCESS="[SUCCESS]"
+LANG_STATUS_FAILED="[FAILED]"
+LANG_STATUS_ERROR="[ERROR]"
 
 # Pre-checks & Auth
 LANG_GCLOUD_NOT_INSTALLED="gcloud CLI is not installed. Please install it and try again."

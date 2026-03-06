@@ -3,7 +3,10 @@ LANG_LOG_DELETED_DIR="Répertoire supprimé :"
 LANG_LOG_CLOUDRUN_DEPLOY="Déploiement du service Cloud Run."
 
 # Status & Errors
-LANG_ERROR="$(date) [ERROR] Invalid input. Please select an appropriate option"
+LANG_ERROR="$(date) [ERREUR] Entrée invalide. Veuillez sélectionner une option appropriée"
+LANG_STATUS_SUCCESS="[SUCCÈS]"
+LANG_STATUS_FAILED="[ÉCHEC]"
+LANG_STATUS_ERROR="[ERREUR]"
 
 # Pre-checks & Auth
 LANG_GCLOUD_NOT_INSTALLED="L'interface CLI gcloud n'est pas installée. Veuillez l'installer et réessayer."
@@ -56,12 +59,12 @@ LANG_REMOVING_LEGACY_ROLE="Suppression de l'ancien rôle :"
 LANG_COULD_NOT_REMOVE_ROLE="Impossible de supprimer le rôle"
 
 # Info Messages
-LANG_CHECKING_PREREQS="INFO : Vérification des prérequis..."
-LANG_VERIFYING_PROJECT_ID="INFO : Vérification de l'ID du projet..."
-LANG_FETCHING_PROJECT_NUMBER="INFO : Récupération du numéro du projet..."
-LANG_CHECKING_BILLING_STATUS="INFO : Vérification de l'état de la facturation pour l'ID du projet : $PROJECT_ID"
-LANG_VERIFYING_ORG_ID="INFO : Vérification de l'ID de l'organisation..."
-LANG_CREATING_LOG_FILES="INFO : Création des fichiers journaux..."
+LANG_CHECKING_PREREQS="Vérification des prérequis..."
+LANG_VERIFYING_PROJECT_ID="Vérification de l'ID du projet..."
+LANG_FETCHING_PROJECT_NUMBER="Récupération du numéro du projet..."
+LANG_CHECKING_BILLING_STATUS="Vérification de l'état de la facturation pour l'ID du projet : $PROJECT_ID"
+LANG_VERIFYING_ORG_ID="Vérification de l'ID de l'organisation..."
+LANG_CREATING_LOG_FILES="Création des fichiers journaux..."
 LANG_SETTING_UP_CUSTOM_ROLES="Configuration des rôles personnalisés..."
 LANG_CLEANING_UP_LEGACY_ROLES="Nettoyage des anciens rôles..."
 LANG_GRANTING_PROJECT_ROLES="Attribution des rôles de projet..."
@@ -73,9 +76,9 @@ LANG_CHECKING_GCLOUD_AUTH="INFO: Checking gcloud authentication..."
 LANG_CHECKING_GCLOUD_IAM="INFO: Checking gcloud IAM..."
 
 # Setup Info
-LANG_APIS="\n\nINFO: Activation des services de projet requis : Cloud Run, Cloud Storage et Cloud Scheduler"
-LANG_SA_SETUP="\n\nINFO : Créer un compte de service CaC et ajouter des permissions"
-LANG_SI_CREATE="\n\nINFO : Création des identités de service Google\n"
+LANG_APIS="Activation des services de projet requis : Cloud Run, Cloud Storage et Cloud Scheduler"
+LANG_SA_SETUP="Créer un compte de service CaC et ajouter des permissions"
+LANG_SI_CREATE="Création des identités de service Google\n"
 
 # New Variables (Project Setup)
 LANG_ERROR_UNEXPECTED="Une erreur inattendue s'est produite. Le script ne peut pas continuer."
