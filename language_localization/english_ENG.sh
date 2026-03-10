@@ -1,151 +1,136 @@
-LANG_ERROR="ERROR: Invalid input. Please select an appropriate option"
-PROMPT="
-Please confirm by re-entering the name:
->"
+# Logging for collector_setup_old.sh refactor
+LANG_LOG_DELETED_DIR="Deleted directory:"
+LANG_LOG_CLOUDRUN_DEPLOY="Deploying Cloud Run service."
 
-LANG_SETUP_PROMPT="
-################################################################################
-##            Gathering Required Information                                  ##
-################################################################################
+# Status & Errors
+LANG_ERROR="$(date) [ERROR] Invalid input. Please select an appropriate option"
+LANG_STATUS_SUCCESS="[SUCCESS]"
+LANG_STATUS_FAILED="[FAILED]"
+LANG_STATUS_ERROR="[ERROR]"
 
-"
-LANG_VALIDATION_PROMPT="
-################################################################################
-##            Validating Required Information                                 ##
-################################################################################
+# Pre-checks & Auth
+LANG_GCLOUD_NOT_INSTALLED="gcloud CLI is not installed. Please install it and try again."
+LANG_GCLOUD_INSTALLED="gcloud CLI is installed."
+LANG_GCLOUD_AUTH_OK="gcloud authentication is successful."
+LANG_GCLOUD_AUTH_FAIL="gcloud authentication failed."
 
-"
+# Roles
+LANG_OWNER_ROLE_PRESENT="User has owner role, skipping individual role checks."
+LANG_MISSING_ROLE="Missing required role:"
+LANG_MISSING_ROLE_SUFFIX="Please ensure you have the necessary permissions."
+LANG_ROLE_PRESENT="Required role is present:"
 
-LANG_DEPLOYMENT_PROMPT="
-################################################################################
-##           Starting CaC Tool Deployment                                     ##
-################################################################################
+# Completion
+LANG_COMPLETION_BANNER="┌───────────────────────────────────────────────────────┐\n│                                                       │\n│   CaC Environment Preparation Completed Successfully  │\n│                                                       │\n└───────────────────────────────────────────────────────┘"
+LANG_SERVICE_ACCOUNT_INFO="  Service Account Information for SSC:"
+LANG_COMPLIANCE_TOOL_SA="  Compliance Tool Service Account:  "
+LANG_CLOUD_RUN_ROBOT_ACCOUNT="  Cloud Run Robot Account:          "
+LANG_STORAGE_TRANSFER_ROBOT_ACCOUNT="  Storage Transfer Robot Account:   "
+LANG_BINARY_AUTH_ROBOT_ACCOUNT="  Binary Auth Robot Account:        "
 
-"
+# Service Enablement
+LANG_ENABLING_SERVICE="Enabling Service:"
+LANG_COULD_NOT_ENABLE_SERVICE="Could not enable"
 
-LANG_APIS="
+# Custom Roles
+LANG_CONFIGURING_ROLE="Configuring Role:"
+LANG_FAILED_CREATE_OR_UPDATE_ROLE="Failed to create or update role"
+LANG_GRANTING_ROLE="Granting Role:"
+LANG_FAILED_GRANT_ROLE="Failed to grant role"
+LANG_GRANTING_CUSTOM_ROLE="Granting Custom Role:"
+LANG_FAILED_GRANT_CUSTOM_ROLE="Failed to grant custom role"
+LANG_GRANTING_ORG_ROLE="Granting Org Role:"
+LANG_FAILED_GRANT_ORG_ROLE="Failed to grant organization role. Check your permissions on Org ID:"
 
-INFO: Enabling Required Project Services: Cloud Run, Cloud Storage and Cloud Scheduler"
+# Identities
+LANG_CREATING_IDENTITY_FOR="Creating Identity for:"
+LANG_COULD_NOT_CREATE_IDENTITY_FOR="Could not create identity for"
+LANG_GRANTING_STORAGE_VIEWER_TO_TRANSFER_SERVICE="Granting Storage Viewer to Transfer Service"
+LANG_FAILED_GRANT_ROLE_TO_TRANSFER_SERVICE_AGENT="Failed to grant role to Storage Transfer Service agent."
+LANG_GRANTING_CUSTOM_STORAGE_ROLE_TO_ASSET_SERVICE="Granting Custom Storage Role to Cloud Asset Service"
+LANG_FAILED_GRANT_CUSTOM_ROLE_TO_ASSET_AGENT="Failed to grant custom role to Cloud Asset agent."
 
-LANG_SA_SETUP="
+# Verification
+LANG_PROJECT_ID_VERIFIED="Project ID verified successfully:"
+LANG_PROJECT_NUMBER_VERIFIED="Project Number verified successfully:"
+LANG_BILLING_ENABLED="Billing is enabled for"
+LANG_ORG_ID_VERIFIED="Organization ID verified successfully:"
+LANG_REMOVING_LEGACY_ROLE="Removing legacy role:"
+LANG_COULD_NOT_REMOVE_ROLE="Could not remove role"
 
-INFO: Creating CaC Service account and adding permissions"
+# Info Messages
+LANG_CHECKING_PREREQS="Checking prerequisites..."
+LANG_VERIFYING_PROJECT_ID="Verifying Project ID..."
+LANG_FETCHING_PROJECT_NUMBER="Fetching Project Number..."
+LANG_CHECKING_BILLING_STATUS="Checking Billing Status for Project ID: $PROJECT_ID"
+LANG_VERIFYING_ORG_ID="Verifying Organization ID..."
+LANG_CREATING_LOG_FILES="Creating Log Files..."
+LANG_SETTING_UP_CUSTOM_ROLES="Setting up Custom Roles..."
+LANG_CLEANING_UP_LEGACY_ROLES="Cleaning up legacy roles..."
+LANG_GRANTING_PROJECT_ROLES="Granting Project Roles..."
+LANG_GRANTING_CUSTOM_ROLES="Granting Custom Roles..."
+LANG_GRANTING_ORG_ROLES="Granting Organization Roles..."
+LANG_GRANTING_ROLES_TO_SERVICE_IDENTITIES="Granting Roles to Google Service Identities..."
+LANG_CHECKING_GCLOUD_INSTALLATION="Checking gcloud installation..."
+LANG_CHECKING_GCLOUD_AUTH="Checking gcloud authentication..."
+LANG_CHECKING_GCLOUD_IAM="Checking gcloud IAM..."
 
-LANG_SI_CREATE="
+# Setup Info
+LANG_APIS="Enabling Required Project Services: Cloud Run, Cloud Storage and Cloud Scheduler"
+LANG_SA_SETUP="Creating CaC Service account and adding permissions"
+LANG_SI_CREATE="Creating Google Service Identities\n"
 
-INFO: Creating Google Service Identities
-"
+# New Variables (Project Setup)
+LANG_ERROR_UNEXPECTED="An unexpected error occurred. Script cannot continue."
+LANG_LANGUAGE_SET="Language set to English."
+LANG_ERROR_NO_PROJECT_ID="No Google Cloud Project set. Run: gcloud config set project <id> or use a .env file with PROJECT_ID=<id>."
+LANG_ERROR_PROJECT_NUMBER="Could not verify Project Number."
+LANG_ERROR_BILLING_NOT_ENABLED="Billing is NOT enabled for"
+LANG_ERROR_ORG_ID="Could not verify Organization ID."
+LANG_SA_DESCRIPTION="CaC Solution Service Account"
+LANG_CREATING_SA="Creating Service Account:"
+LANG_ERROR_CREATING_SA="Could not create Service Account:"
 
-LANG_ORG_ID="
-Please enter the numeric GCP Organization ID:
->"
-LANG_ORG_NAME="
-Please enter the Organization Name:
->"
-LANG_GC_PROFILE="
-Please enter the Organization's Cloud Usage Profile level (1-6):
->"
-LANG_SERVICE_ACCOUNT="
-Please enter the shortname of the service account to use for deployment:
->"
-
-LANG_BUCKET="
-Please enter the Google Cloud Storage Bucket URL:
->"
-
-LANG_POLICY="
-Please enter the URL of the Source Repository containing the Compliance Policies:
->"
-
-LANG_PROJECT="is detected as the current project associated with gcloud 
-cli, press ENTER to continue using this project or enter a different project name:
->"
-
-LANG_REGION="
-Please select an installation region: 
-1) northamerica-northeast1 (Canada - Montréal)
-2) northamerica-northeast2 (Canada - Toronto)
->"
-
-LANG_CONFIG_PROMPT="
-
-INFO: Configuration file found, setup will use the values to proceed"
-
-
-CONFIRM_PROJECT="
-
-INFO: CaC tool will be deployed into the project: "
-
-CONFIRM_REGION="
-
-INFO: CaC tool will be deployed into the region: "
-
-CONFIRM_SERVICE_ACCOUNT="
-
-INFO: CaC tool will be deployed using the service account: "
-
-SA_POLICY_ERROR="
-
-WARNING: Service account permissions are over-provisioned
-
-"
-SA_CURRENT_POLICY="
-
-Current Permissions are:
-
-"
-SA_REQUIRED_POLICY="
-
-Required Permissions are:
-
-"
-SA_ERROR="
-ERROR: Service Account not found. Please verify and retry"
-
-BINDING_PROMPT="
-INFO: Binding Service account to principal user...
-"
-ROLE_VALIDATION_PROMPT="
-INFO: Verifying Service Account Access and Permissions
-"
-ROLES_VALIDATION="Role correctly assigned to: 
-"
-ROLES_VALIDATION_SUCCESS="
-INFO: Validated required roles for Service Account
-"
-ROLES_VALIDATION_ERROR="
-ERROR: Service account is missing the following roles:
-"
-POLICY_CONFIRMATION="
-Are you sure you want to continue? (y/n)
->"
-
-POLICY_CONTINUE="
-INFO: Continuing deployment
-"
-POLICY_EXIT="
-Exiting deployment"
-
-
-LANG_CAC_IMAGE="Enter the image to use: 
->"
-LANG_CAC_OPA_IMAGE="Enter the OPA image to use: 
->"
-CREATE_BUCKET="
-INFO: Creating guardrail compliance hub bucket...
-"
-CONFIG_BUCKET="
-INFO: Setting storage class and versioning configurations...
-"
-CREATE_FOLDERS="
-INFO: Creating guardrail directories in the background...
-"
-CREATE_CRUN="
-INFO: Creating Cloud Run service in the background...
-"
-CREATE_CSCHEDULER="
-INFO: Creating Cloud Scheduler...
-"
-COMPLETED="
-SUCCESS: CaC Tool deployment completed
-"
+# Collector Setup Variables
+LANG_ERROR_CREATE_LOG="Failed to create log file."
+LANG_LOG_CREATED="Log files created successfully."
+LANG_CHECKING_VARIABLES="Checking required variables have been set..."
+LANG_ERROR_MISSING_VARS="Missing required variable(s):"
+LANG_CONFIG_INITIALIZED="Configuration variables initialized successfully."
+LANG_CONFIGURING_SA="Configuring Service Account..."
+LANG_CONFIRMING_SA="Confirming service account exists:"
+LANG_ERROR_SA_NOT_EXIST="Service account doesn't appear to exist:"
+LANG_BINDING_TOKEN_CREATOR="Binding Service Account Token Creator role"
+LANG_ERROR_BINDING_TOKEN_CREATOR="Failed to bind Service Account Token Creator role"
+LANG_GRANTING_STORAGE_TRANSFER="Granting roles/storagetransfer.admin"
+LANG_ERROR_GRANTING_STORAGE_TRANSFER="Failed to grant roles/storagetransfer.admin to"
+LANG_CREATING_BUCKET="Creating bucket:"
+LANG_ERROR_CREATING_BUCKET="Failed to create bucket:"
+LANG_SETTING_STORAGE_CLASS="Setting default storage class to STANDARD for bucket:"
+LANG_ERROR_SETTING_STORAGE_CLASS="Failed to set default storage class for bucket:"
+LANG_ENABLING_VERSIONING="Enabling versioning for bucket:"
+LANG_ERROR_ENABLING_VERSIONING="Failed to enable versioning for bucket:"
+LANG_INSTRUCTION_FILE_CONTENT="Please use this space to upload compliance related files"
+LANG_UPLOADING_GUARDRAIL="Uploading guardrail-"
+LANG_ERROR_UPLOADING_GUARDRAIL="Failed to upload guardrail-"
+LANG_SETTING_IAM_POLICY="Setting IAM policy for custom role"
+LANG_ERROR_SETTING_IAM_POLICY="Failed to set IAM policy for custom role"
+LANG_CREATING_TRANSFER_JOB="Creating nightly_compliance_transfer job"
+LANG_ERROR_CREATING_TRANSFER_JOB="Failed to create nightly_compliance_transfer job"
+LANG_CONFIGURING_CLOUD_RUN="Configuring Cloud Run Job..."
+LANG_ERROR_DEPLOYING_CLOUD_RUN="Failed to deploy Cloud Run service"
+LANG_ENABLING_BIN_AUTH="Enabling Binary Authorization for Cloud Run service"
+LANG_ERROR_ENABLING_BIN_AUTH="Failed to enable Binary Authorization for Cloud Run service"
+LANG_CREATING_SCHEDULER="Creating Cloud Scheduler Job:"
+LANG_ERROR_CREATING_SCHEDULER="Could not create Cloud Scheduler Job:"
+LANG_PROMPT_UPLOAD_CONFIG="Do you want to upload your config file to Cloud Storage for backup? (1 = Yes, 0 = No): "
+LANG_SKIPPING_UPLOAD="Skipping upload to Cloud Storage."
+LANG_ERROR_INVALID_YES_NO="Invalid input. Please enter 1 (Yes) or 0 (No)."
+LANG_CREATING_CONFIG_FILE="Creating collector config file"
+LANG_ERROR_CREATING_CONFIG_FILE="Failed to create collector config file"
+LANG_CREATING_BACKUP_BUCKET="Creating bucket:"
+LANG_ERROR_CREATING_BACKUP_BUCKET="Failed to create bucket:"
+LANG_UPLOADING_CONFIG="Uploading configuration file to Cloud Storage:"
+LANG_ERROR_UPLOADING_CONFIG="Failed to upload configuration file to Cloud Storage:"
+LANG_ERROR_NO_CONFIG_FILE="No collector_config.txt file found to upload to GCS."
+LANG_COMPLETION_BANNER_COLLECTOR="\n┌───────────────────────────────────────────────────────┐\n│                                                       │\n│       CaC Collector Setup Completed Successfully      │\n│                                                       │\n└───────────────────────────────────────────────────────┘\n"
