@@ -498,7 +498,7 @@ function generate_collector_config() {
   export ORG_ID="${ORG_ID}"
   #GR13.2 & GR13.3
   # breakglass user emails
-  export BREAKGLASS_USER_EMAILS="${BREAKGLASS_USER_EMAILS}"
+  export BREAKGLASS_USER_EMAILS='${BREAKGLASS_USER_EMAILS}'
   ###--------------------------------------
   # Core deployment settings
   #----------------------------------------
