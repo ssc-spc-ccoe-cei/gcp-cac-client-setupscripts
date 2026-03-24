@@ -1,0 +1,17 @@
+title: "CaC Storage Role"
+description: "Custom role for CaC solution Cloud Storage operations"
+stage: "GA"
+includedPermissions:
+  - storage.buckets.create
+  - storage.buckets.get
+  - storage.buckets.list
+  - storage.buckets.update
+  - storage.buckets.getIamPolicy
+  - storage.buckets.setIamPolicy
+  - storage.objects.create
+  - storage.objects.get
+  - storage.objects.list
+  - storage.objects.update
+  - storage.objects.delete
+  - storage.objects.getIamPolicy
+  - storage.objects.setIamPolicy
