@@ -45,6 +45,7 @@ function config_init {
       "PROJECT_ID"
       "SERVICE_ACCOUNT"
       "ORG_NAME"
+      "ORG_ID"
       "GC_PROFILE"
       "SECURITY_CATEGORY_KEY"
       "PRIVILEGED_USERS_LIST"
@@ -81,7 +82,6 @@ function config_init {
   fi
 
   PROJECT_NUMBER=$(gcloud projects describe "${PROJECT_ID}" --format="value(projectNumber)" 2>&1)
-  ORG_ID="$(gcloud organizations list --filter="${ORG_NAME}" --format="value(ID)" 2>&1)"
   ACCOUNT_NUMBER=$(gcloud projects describe "${PROJECT_ID}" --format="value(projectNumber)" 2>&1)
   JOB_NAME="compliance-analysis-automation-$(echo "${ACCOUNT_NUMBER}" | tr '[:upper:]' '[:lower:]')"
   BUCKET_NAME="compliance-hub-"$(echo ${ACCOUNT_NUMBER} | tr '[:upper:]' '[:lower:]')
@@ -494,7 +494,8 @@ function generate_collector_config() {
   # List of Acceptable Certifcate Authorities
   # Format: "Let's Encrypt,Verisign"
   export CA_ISSUERS="${CA_ISSUERS}"
-  # GR11.4
+  # GCP Organization ID
+  # run `gcloud organizations list` to find yours
   export ORG_ID="${ORG_ID}"
   #GR13.2 & GR13.3
   # breakglass user emails
