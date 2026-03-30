@@ -331,7 +331,7 @@ function cloudrun_service {
                     cd /mnt/policies
                     git checkout ${BRANCH}
                     ls -l /mnt/policies
-                    /usr/bin/opa run --server --h2c --addr :8181 --log-level debug --disable-telemetry --set server.decoding.max_length=536870912 --set server.decoding.gzip.max_length=1073741824 /mnt/policies
+                    /usr/bin/opa run --server --h2c --addr :8181 --log-level debug --disable-telemetry --set server.decoding.max_length=1073741824 --set server.decoding.gzip.max_length=1073741824 /mnt/policies
                 env:
                 - name: GC_PROFILE
                   value: "${GC_PROFILE}"
