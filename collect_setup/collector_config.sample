@@ -59,7 +59,8 @@ export CUSTOMER_IDS='C012habcde'
 # Format: "Let's Encrypt,Verisign"
 export CA_ISSUERS="Let's Encrypt,Verisign"
 
-# GR11.4
+# GCP Organization ID
+# run `gcloud organizations list` to find yours
 export ORG_ID="1234567890"
 
 #GR13.2 & GR13.3
