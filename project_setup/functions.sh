@@ -218,6 +218,7 @@ function service_account_setup {
     "iam.serviceAccountUser"
     "run.invoker"
     "run.serviceAgent"
+    "binaryauthorization.policyEditor"
   )
 
   OLD_PROJECT_ROLES=(
