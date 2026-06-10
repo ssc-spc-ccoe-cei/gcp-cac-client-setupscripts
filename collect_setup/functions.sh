@@ -327,11 +327,12 @@ function cloudrun_service {
                   - |
                     rm -Rf /mnt/policies/*
                     git config --global credential.helper gcloud.sh
+                    git config --global --add safe.directory /mnt/policies
                     git clone --quiet ${POLICY_REPO} /mnt/policies
                     cd /mnt/policies
                     git checkout ${BRANCH}
                     ls -l /mnt/policies
-                    /usr/bin/opa run --server --h2c --addr :8181 --log-level debug --disable-telemetry --set server.decoding.max_length=1073741824 --set server.decoding.gzip.max_length=1073741824 /mnt/policies
+                    /usr/bin/opa run --server --h2c --addr :8181 --log-level debug --skip-version-check --set server.decoding.max_length=1073741824 --set server.decoding.gzip.max_length=1073741824 /mnt/policies
                 env:
                 - name: GC_PROFILE
                   value: "${GC_PROFILE}"
