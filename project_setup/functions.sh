@@ -229,7 +229,7 @@ function service_account_setup {
 
   ORG_ROLES=(
     "securitycenter.adminViewer"
-    "logging.viewer"
+    "logging.privateLogViewer"
     "cloudasset.viewer"
     "essentialcontacts.viewer"
     "certificatemanager.viewer"
