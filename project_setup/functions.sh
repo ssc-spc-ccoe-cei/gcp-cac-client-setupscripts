@@ -266,7 +266,7 @@ function service_account_setup {
   log_info "$LANG_GRANTING_PROJECT_ROLES"
   for role in ${PROJECT_ROLES[@]}; do
     run_command \
-      "gcloud projects add-iam-policy-binding ${PROJECT_ID} --member=serviceAccount:$SERVICE_ACCOUNT@$PROJECT_ID.iam.gserviceaccount.com --role=roles/${role}" \
+      "gcloud projects add-iam-policy-binding ${PROJECT_ID} --member=serviceAccount:$SERVICE_ACCOUNT@$PROJECT_ID.iam.gserviceaccount.com --condition=None --role=roles/${role}" \
       "$LANG_GRANTING_ROLE $role" \
       "$LANG_FAILED_GRANT_ROLE $role."
   done
@@ -277,7 +277,7 @@ function service_account_setup {
     local role_name=${role##*/}
 
     run_command \
-      "gcloud projects add-iam-policy-binding ${PROJECT_ID} --member=serviceAccount:$SERVICE_ACCOUNT@$PROJECT_ID.iam.gserviceaccount.com --role=${role}" \
+      "gcloud projects add-iam-policy-binding ${PROJECT_ID} --member=serviceAccount:$SERVICE_ACCOUNT@$PROJECT_ID.iam.gserviceaccount.com --condition=None --role=${role}" \
       "$LANG_GRANTING_CUSTOM_ROLE $role_name" \
       "$LANG_FAILED_GRANT_CUSTOM_ROLE $role."
   done
@@ -313,14 +313,14 @@ function service_identities_create {
   local STS_SA="project-$PROJECT_NUMBER@storage-transfer-service.iam.gserviceaccount.com"
 
   run_command \
-    "gcloud projects add-iam-policy-binding ${PROJECT_ID} --member=serviceAccount:${STS_SA} --role=roles/storage.objectViewer" \
+    "gcloud projects add-iam-policy-binding ${PROJECT_ID} --member=serviceAccount:${STS_SA} --condition=None --role=roles/storage.objectViewer" \
     "$LANG_GRANTING_STORAGE_VIEWER_TO_TRANSFER_SERVICE" \
     "$LANG_FAILED_GRANT_ROLE_TO_TRANSFER_SERVICE_AGENT"
 
   local ASSET_SA="service-$PROJECT_NUMBER@gcp-sa-cloudasset.iam.gserviceaccount.com"
 
   run_command \
-    "gcloud projects add-iam-policy-binding ${PROJECT_ID} --member=serviceAccount:${ASSET_SA} --role=projects/$PROJECT_ID/roles/cac_storage_object_role" \
+    "gcloud projects add-iam-policy-binding ${PROJECT_ID} --member=serviceAccount:${ASSET_SA} --condition=None --role=projects/$PROJECT_ID/roles/cac_storage_object_role" \
     "$LANG_GRANTING_CUSTOM_STORAGE_ROLE_TO_ASSET_SERVICE" \
     "$LANG_FAILED_GRANT_CUSTOM_ROLE_TO_ASSET_AGENT"
 
