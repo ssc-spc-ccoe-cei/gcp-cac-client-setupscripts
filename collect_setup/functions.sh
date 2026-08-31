@@ -104,12 +104,12 @@ function service_account {
   current_user=$(gcloud config list account --format 'value(core.account)' 2>/dev/null)
 
   run_command \
-    "gcloud iam service-accounts add-iam-policy-binding $SERVICE_ACCOUNT --member=user:$current_user --role=roles/iam.serviceAccountTokenCreator" \
+    "gcloud iam service-accounts add-iam-policy-binding $SERVICE_ACCOUNT --member=user:$current_user --condition=None --role=roles/iam.serviceAccountTokenCreator" \
     "$LANG_BINDING_TOKEN_CREATOR" \
     "$LANG_ERROR_BINDING_TOKEN_CREATOR"
 
   run_command \
-    "gcloud projects add-iam-policy-binding $PROJECT_ID --member=serviceAccount:$SERVICE_ACCOUNT --role=roles/storagetransfer.admin" \
+    "gcloud projects add-iam-policy-binding $PROJECT_ID --member=serviceAccount:$SERVICE_ACCOUNT --condition=None --role=roles/storagetransfer.admin" \
     "$LANG_GRANTING_STORAGE_TRANSFER" \
     "$LANG_ERROR_GRANTING_STORAGE_TRANSFER $SERVICE_ACCOUNT"
 
@@ -215,6 +215,7 @@ function storage_bucket {
   run_command \
     "gcloud storage buckets add-iam-policy-binding gs://${BUCKET_NAME} \
     --member=serviceAccount:service-$PROJECT_NUMBER@gcp-sa-cloudasset.iam.gserviceaccount.com \
+    --condition=None \
     --role=projects/$PROJECT_ID/roles/cac_storage_object_role \
     --impersonate-service-account=\"$SERVICE_ACCOUNT\" \
     --verbosity=none" \
